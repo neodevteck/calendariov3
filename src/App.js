@@ -1,25 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from 'react';
+import { getMonth } from './util/util';
+import EncabezadoCalendario from './components/EncabezadoCalendario';
+import MenuLateral from './components/MenuLateral';
+import Mes from './components/Mes';
+import useStore from './store/useStore';
+const App = () => {
+  console.log('APP');
+  const [mesActual, setMesActual] = useState(getMonth());
+  const indiceMes = useStore((state) => state.indiceMes);
 
-function App() {
+  useEffect(() => {
+    setMesActual(getMonth(indiceMes));
+  }, [indiceMes]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <div className='h-screen flex flex-columns'>
+        <EncabezadoCalendario />
+        <div className='flex flex-1'>
+          <MenuLateral />
+          <Mes mes={mesActual} />
+        </div>
+      </div>
+    </React.Fragment>
   );
-}
+};
 
 export default App;
