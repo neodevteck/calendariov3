@@ -11,9 +11,7 @@ function MiniCalendario() {
   const [mesActualMiniCalendario, setmesActualMiniCalendario] = useState(
     getMonth()
   );
-  useEffect(() => {
-    setmesActualMiniCalendario(getMonth(indiceMesMiniCalendario));
-  }, [indiceMesMiniCalendario]);
+  
 
     // const indiceMes = useStore((state) => state.indiceMes);
     // const setIndiceMes = useStore((state) => state.setIndiceMes);

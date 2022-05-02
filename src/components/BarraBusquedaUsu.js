@@ -46,9 +46,9 @@ export default function BarraBusquedaUsu() {
       
       setCargando(true);
       axios
-        .post(
-        //.get(
-          //'http://localhost:3003/usuarios',
+        //.post(
+        .get(
+          'http://localhost:3003/usuarios',
           'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
           { prefixText: e.target.value },
           {
@@ -94,7 +94,7 @@ export default function BarraBusquedaUsu() {
         id='txtBusqueda'
         value={textoBusqueda}
         onChange={test}
-        placeholder='  &#xf0c0;  Buscar a gente'
+        placeholder='  &#xf0c0;  Buscar usuarios'
         style={{ fontFamily: 'FontAwesome' }}
         className='pt-2 border-0 text-black-200 text-l pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500  '
       />

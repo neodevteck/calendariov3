@@ -2,16 +2,12 @@ import React, { useContext } from 'react';
 import dayjs from 'dayjs';
 import GlobalContext from '../context/GlobalContext';
 //import useStore from '../store/useStore';
-
-
 const EncabezadoCalendario = () => {
   // const indiceMes = useStore((state) => state.indiceMes);
-  // const setIndiceMes = useStore((state) => state.setIndiceMes);
-  
+  // const setIndiceMes = useStore((state) => state.setIndiceMes);  
   //const usuarios = useStore((state) => state.usuarios);
-  const { indiceMes, setIndiceMes } = useContext(GlobalContext);
+  const { indiceMes, setIndiceMes,setOpcionVista } = useContext(GlobalContext);
   //console.log(usuarios);
-
   function mesAnterior() {
     setIndiceMes(indiceMes - 1);
   }
@@ -24,6 +20,10 @@ const EncabezadoCalendario = () => {
         ? indiceMes + Math.random()
         : dayjs().month()
     );
+  }  
+  function OpcionVista(e){
+    //console.log(e.target.value)
+    setOpcionVista(e.target.value)
   }
 
   return (
@@ -62,7 +62,7 @@ const EncabezadoCalendario = () => {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
-          aria-label='.form-select-sm example'
+          aria-label='.form-select-sm example'  onChange={OpcionVista}
         >
           <option defaultValue={'1'} value='1'>
             Mes

@@ -14,7 +14,13 @@ const GlobalContext = React.createContext({
   usuarios: [],
   setUsuarios: (val) => {},
   updateUsuario: (val) => {},
-  colores:[]
+  colores:[],
+  actividadesMes:[],
+  setActividadesMes: (val)=>{},
+  filtrarActividades: ()=>{},
+  setOpcionVista: ()=>{},
+  opcionVista:0
+
 });
 
 export default GlobalContext;
