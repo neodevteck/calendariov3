@@ -13,6 +13,8 @@ const GlobalContext = React.createContext({
   setIdUsuarioLogueado: (val) => {},
   usuarios: [],
   setUsuarios: (val) => {},
+  updateUsuario: (val) => {},
+  colores:[]
 });
 
 export default GlobalContext;

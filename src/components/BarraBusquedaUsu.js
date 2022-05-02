@@ -27,7 +27,8 @@ export default function BarraBusquedaUsu() {
       ];
     });
     setListaCoincidencias([]);
-    document.querySelector('#txtBusqueda').value = '';
+    setTextoBusqueda('');
+    document.querySelector('#txtBusqueda').focus()
   }
 
   const test = (e) =>{
