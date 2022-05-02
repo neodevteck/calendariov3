@@ -5,7 +5,7 @@ export const fetchActividades = () =>
   axios
     .get(
       //'frmCalendarioV2.aspx/ObtenerUsuario',
-      //'http://localhost:3001/data',
+      //'http://localhost:3001/actividades',
       {},
       {
         headers: { 'Content-Type': 'application/json' },

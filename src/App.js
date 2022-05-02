@@ -8,6 +8,9 @@ import ModalDia from './components/ModalDia';
 import Spinner from './components/Spinner';
 import GlobalContext from './context/GlobalContext';
 import axios from 'axios';
+//import useStore from './store/useStore';
+
+
 
 const App = () => {
   console.log('APP');
@@ -20,26 +23,34 @@ const App = () => {
     setUsuarios,
   } = useContext(GlobalContext);
 
-  const [error, seterror] = useState(false);
+  
+  // const setIdUsuarioLogueado = useStore( (state) => state.setIdUsuarioLogueado)
+  // const setUsuarios = useStore( (state) => state.setUsuarios)
+  // const mostrarModalDia = useStore( (state) => state.mostrarModalDia)
+  // const idUsuarioLogueado = useStore( (state) => state.idUsuarioLogueado)
+  // const indiceMes = useStore( (state) => state.indiceMes)
+
+
+  const [error, setError] = useState(false);
   const [cargando, setCargando] = useState();
 
   useEffect(() => {
     setCargando(true);
     axios
-      //.get(
-      .post(
-        //'http://localhost:3003/usua',
-        'frmCalendarioV2.aspx/ObtenerUsuario',
+      .get(
+      //.post(
+        'http://localhost:3003/usuario',
+        //'frmCalendarioV2.aspx/ObtenerUsuario',
         {},
         {
           headers: { 'Content-Type': 'application/json' },
         }
       )
       .then((res) => {
-        console.log(res);
+        //console.log(res);
         if (res.status === 200) {
           if (res.data.d !== undefined) {
-            console.log('usuario request');
+            //console.log('usuario request');
             setIdUsuarioLogueado(res.data.d.id);
             setUsuarios((prevState) => {
               return [
@@ -48,7 +59,7 @@ const App = () => {
                   id: res.data.d.id,
                   nombre: res.data.d.nombre,
                   checked: true,
-                  num: 1,
+                  num: 0,
                 },
               ];
             });
@@ -56,7 +67,7 @@ const App = () => {
         }
       })
       .catch(() => {
-        seterror(true);
+        setError(true);
       })
       .then(() => {
         setCargando(false);
@@ -76,7 +87,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {mostrarModalDia === true && <ModalDia />}
+      {mostrarModalDia === true && <ModalDia />}      
       <div className='h-screen flex flex-col'>
         <EncabezadoCalendario />
         <div className='flex flex-1'>
