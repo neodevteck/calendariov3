@@ -37,10 +37,10 @@ const App = () => {
   useEffect(() => {
     setCargando(true);
     axios
-      .get(
-      //.post(
-        'http://localhost:3003/usuario',
-        //'frmCalendarioV2.aspx/ObtenerUsuario',
+      //.get(
+      .post(
+        //'http://localhost:3003/usuario',
+        'frmCalendarioV2.aspx/ObtenerUsuario',
         {},
         {
           headers: { 'Content-Type': 'application/json' },

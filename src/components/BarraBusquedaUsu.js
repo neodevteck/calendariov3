@@ -15,17 +15,19 @@ export default function BarraBusquedaUsu() {
   const { setUsuarios, usuarios } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
     console.log('AGREGAR USUARIO');
-    setUsuarios((prevState) => {
-      return [
-        ...prevState.filter((item) => item.id !== obj.TERCEID_USU),
-        {
-          id: obj.TERCEID_USU,
-          nombre: obj.NOMCOMPL_USU,
-          checked: true,
-          num: usuarios.length,
-        },
-      ];
-    });
+    if(usuarios.length <15){
+      setUsuarios((prevState) => {
+        return [
+          ...prevState.filter((item) => item.id !== obj.TERCEID_USU),
+          {
+            id: obj.TERCEID_USU,
+            nombre: obj.NOMCOMPL_USU,
+            checked: true,
+            num: usuarios.length,
+          },
+        ];
+      });
+    }
     setListaCoincidencias([]);
     setTextoBusqueda('');
     document.querySelector('#txtBusqueda').focus()
@@ -39,16 +41,16 @@ export default function BarraBusquedaUsu() {
   const buscaUsuarios = React.useMemo(
     () => debounce((e) => {
       //setTextoBusqueda(e.target.value);   
-      //console.log(textoBusqueda)
+      console.log(e.target.value)
      if (e.target.value !== '') {    
       
       setCargando(true);
       axios
-        .get(
-        //.post(
-          'http://localhost:3003/usuarios',
-          //'frmCalendarioV2.aspx/ObtenerUsuario',
-          {},
+        .post(
+        //.get(
+          //'http://localhost:3003/usuarios',
+          'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
+          { prefixText: e.target.value },
           {
             headers: { 'Content-Type': 'application/json' },
           }
