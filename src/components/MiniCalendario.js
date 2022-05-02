@@ -1,7 +1,7 @@
 import dayjs from 'dayjs';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import GlobalContext from '../context/GlobalContext';
 import { getMonth } from '../util/util';
-import useStore from '../store/useStore';
 
 function MiniCalendario() {
   const [indiceMesMiniCalendario, setindiceMesMiniCalendario] = useState(
@@ -14,14 +14,22 @@ function MiniCalendario() {
     setmesActualMiniCalendario(getMonth(indiceMesMiniCalendario));
   }, [indiceMesMiniCalendario]);
 
-  const indiceMes = useStore((state) => state.indiceMes);
-  const setIndiceMes = useStore((state) => state.setIndiceMes);
+  //   const indiceMes = useStore((state) => state.indiceMes);
+  //   const setIndiceMes = useStore((state) => state.setIndiceMes);
 
-  const setMesMiniCalendario = useStore((state) => state.setMesMiniCalendario);
-  const mesMiniCalendario = useStore((state) => state.mesMiniCalendario);
+  //   const setMesMiniCalendario = useStore((state) => state.setMesMiniCalendario);
+  //   const mesMiniCalendario = useStore((state) => state.mesMiniCalendario);
 
-  const diaSeleccionado = useStore((state) => state.diaSeleccionado);
-  const setDiaSeleccionado = useStore((state) => state.setDiaSeleccionado);
+  //   const diaSeleccionado = useStore((state) => state.diaSeleccionado);
+  //   const setDiaSeleccionado = useStore((state) => state.setDiaSeleccionado);
+  const {
+    indiceMes,
+    setIndiceMes,
+    setMesMiniCalendario,
+    mesMiniCalendario,
+    diaSeleccionado,
+    setDiaSeleccionado,
+  } = useContext(GlobalContext);
 
   useEffect(() => {
     setindiceMesMiniCalendario(indiceMes);

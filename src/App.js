@@ -1,20 +1,82 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { getMonth } from './util/util';
 import EncabezadoCalendario from './components/EncabezadoCalendario';
 import MenuLateral from './components/MenuLateral';
 import Mes from './components/Mes';
-import useStore from './store/useStore';
+import ModalDia from './components/ModalDia';
+
+import Spinner from './components/Spinner';
+import GlobalContext from './context/GlobalContext';
+import axios from 'axios';
+
 const App = () => {
   console.log('APP');
   const [mesActual, setMesActual] = useState(getMonth());
-  const indiceMes = useStore((state) => state.indiceMes);
+  const {
+    indiceMes,
+    mostrarModalDia,
+    setIdUsuarioLogueado,
+    idUsuarioLogueado,
+    setUsuarios,
+  } = useContext(GlobalContext);
+
+  const [error, seterror] = useState(false);
+  const [cargando, setCargando] = useState();
+
+  useEffect(() => {
+    setCargando(true);
+    axios
+      //.get(
+      .post(
+        //'http://localhost:3003/usua',
+        'frmCalendarioV2.aspx/ObtenerUsuario',
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
+      .then((res) => {
+        console.log(res);
+        if (res.status === 200) {
+          if (res.data.d !== undefined) {
+            console.log('usuario request');
+            setIdUsuarioLogueado(res.data.d.id);
+            setUsuarios((prevState) => {
+              return [
+                ...prevState.filter((item) => item.id !== res.data.d.id),
+                {
+                  id: res.data.d.id,
+                  nombre: res.data.d.nombre,
+                  checked: true,
+                  num: 1,
+                },
+              ];
+            });
+          }
+        }
+      })
+      .catch(() => {
+        seterror(true);
+      })
+      .then(() => {
+        setCargando(false);
+      });
+  }, [setIdUsuarioLogueado, setUsuarios, idUsuarioLogueado]);
 
   useEffect(() => {
     setMesActual(getMonth(indiceMes));
   }, [indiceMes]);
 
+  if (cargando) {
+    return <Spinner />;
+  }
+  if (error) {
+    return <div>Ha ocurrido un error</div>;
+  }
+
   return (
     <React.Fragment>
+      {mostrarModalDia === true && <ModalDia />}
       <div className='h-screen flex flex-col'>
         <EncabezadoCalendario />
         <div className='flex flex-1'>

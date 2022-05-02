@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import dayjs from 'dayjs';
-import useStore from '../store/useStore';
+import GlobalContext from '../context/GlobalContext';
+
 const EncabezadoCalendario = () => {
-  const indiceMes = useStore((state) => state.indiceMes);
-  const setIndiceMes = useStore((state) => state.setIndiceMes);
+  //const indiceMes = useStore((state) => state.indiceMes);
+  //const setIndiceMes = useStore((state) => state.setIndiceMes);
+  const { indiceMes, setIndiceMes, usuarios } = useContext(GlobalContext);
+  ///const usuarios = useStore((state) => state.usuarios);
+
+  console.log(usuarios);
 
   function mesAnterior() {
     setIndiceMes(indiceMes - 1);

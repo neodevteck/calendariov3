@@ -3,12 +3,9 @@ import axios from 'axios';
 
 export const fetchUsuario = () =>
   axios
-    .post(
-      'frmCalendarioV2.aspx/ObtenerUsuario',
-      {},
-      {
-        headers: { 'Content-Type': 'application/json' },
-      }
+    .get(
+      //'frmCalendarioV2.aspx/ObtenerUsuario',
+      'http://localhost:3003/usua'
     )
     .then((res) => res.data);
 

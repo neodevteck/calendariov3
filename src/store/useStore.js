@@ -8,6 +8,14 @@ const useStore = create((set) => ({
   setMesMiniCalendario: (val) => set({ mesMiniCalendario: val }),
   diaSeleccionado: dayjs(),
   setDiaSeleccionado: (val) => set({ diaSeleccionado: val }),
+  mostrarModalDia: false,
+  setMostrarModalDia: (val) => set({ mostrarModalDia: val }),
+  idUsuarioLogueado: 0,
+  setIdUsuarioLogueado: (val) => set({ idUsuarioLogueado: val }),
+  usuarios: [],
+  setUsuarios: (item) => {
+    set((state) => ({ usuarios: [...state.usuarios, item] }));
+  },
 }));
 
 export default useStore;
