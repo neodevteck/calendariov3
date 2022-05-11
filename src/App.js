@@ -13,7 +13,7 @@ import axios from 'axios';
 //import useStore from './store/useStore';
 const App = () => {
   console.log('APP');
-  const [mesActual, setMesActual,opcionVista] = useState(getMonth());
+  const [mesActual, setMesActual] = useState(getMonth());
   const {
     indiceMes,
     mostrarModalDia,
@@ -24,86 +24,107 @@ const App = () => {
     setActividadesMes
   } = useContext(GlobalContext);
   
-  // const setIdUsuarioLogueado = useStore( (state) => state.setIdUsuarioLogueado)
-  // const setUsuarios = useStore( (state) => state.setUsuarios)
-  // const mostrarModalDia = useStore( (state) => state.mostrarModalDia)
-  // const idUsuarioLogueado = useStore( (state) => state.idUsuarioLogueado)
-  // const indiceMes = useStore( (state) => state.indiceMes)
+  console.log(usuarios)
+
+// useEffect(() => {
+//     let arrIds = usuarios.map(x => x.id)
+//     console.log(arrIds)
+//     //setCargando(true);
+//     axios
+//       .post(     
+//         ('frmCalendarioV2.aspx/ObtenerActividadesxTerceIdxFechaInixFechaFin', {FechaInicial:dayjs(getMonth(indiceMes)[0][0]).format("DD-MM-YY").toString(),FechaFinal:dayjs(getMonth(indiceMes)[4][6]).format("DD-MM-YY").toString(),ArrIds: arrIds ? arrIds : [],Tipo:opcionVista}, {
+//       headers: { 'Content-Type': 'application/json' }
+//     })
+      
+//       ).then((res) => {
+//         //console.log(res);
+//         if (res.status === 200) {          
+//           if (res.data.d !== undefined) {
+//             console.log(res.data.d);
+//             //setActividadesMes(res.data.d)
+//             //document.querySelector('#txtBusqueda').value = e.target.value;
+//           }
+//         }
+//       })
+//       .catch(() => {      
+//         //setError(true);
+//       })
+// }, [])
 
 
-  const [error, setError] = useState(false);
-  const [cargando, setCargando] = useState();
+  // const [error, setError] = useState(false);
+  // const [cargando, setCargando] = useState();
 
-  useEffect(() => {
-    setCargando(true);
-    axios
-      //.get(
-      .post(
-        //'http://localhost:3003/usuario',
-        'frmCalendarioV2.aspx/ObtenerUsuario',
-        {},
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
-      .then((res) => {
-        //console.log(res);
-        if (res.status === 200) {
-          if (res.data.d !== undefined) {
-            //console.log('usuario request');
-            setIdUsuarioLogueado(res.data.d.id);
-            setUsuarios([{id:res.data.d.id,nombre:res.data.d.nombre,checked:true,num:0}]);
-          }
-        }
-      })
-      .catch(() => {
-        setError(true);
-      })
-      .then(() => {
-        setCargando(false);
-      });
-  }, [setIdUsuarioLogueado, setUsuarios]);
+  // useEffect(() => {
+  //   setCargando(true);
+  //   axios
+  //     //.get(
+  //     .post(
+  //       //'http://localhost:3003/usuario',
+  //       'frmCalendarioV2.aspx/ObtenerUsuario',
+  //       {},
+  //       {
+  //         headers: { 'Content-Type': 'application/json' },
+  //       }
+  //     )
+  //     .then((res) => {
+  //       //console.log(res);
+  //       if (res.status === 200) {
+  //         if (res.data.d !== undefined) {
+  //           //console.log('usuario request');
+  //           setIdUsuarioLogueado(res.data.d.id);
+  //           setUsuarios([{id:res.data.d.id,nombre:res.data.d.nombre,checked:true,num:0}]);
+  //         }
+  //       }
+  //     })
+  //     .catch(() => {
+  //       setError(true);
+  //     })
+  //     .then(() => {
+  //       setCargando(false);
+  //     });
+  // }, [setIdUsuarioLogueado, setUsuarios]);
 
   // useEffect(() => {
   //   setMesActual(getMonth(indiceMes));
   // }, [indiceMes]);
 
-  useEffect(() => {
-    setMesActual(getMonth(indiceMes));
-    let arrIds = usuarios.map(x => x.id)
-    setCargando(true);
-    axios
-      .post(
-        //.get(
-        //'http://localhost:3003/actividades',
-        ('frmCalendarioV2.aspx/ObtenerActividadesxTerceIdxFechaInixFechaFin', {FechaInicial:dayjs(getMonth(indiceMes)[0][0]).format("DD-MM-YY").toString(),FechaFinal:dayjs(getMonth(indiceMes)[4][6]).format("DD-MM-YY").toString(),ArrIds: arrIds ? arrIds : [],Tipo:opcionVista}, {
-      headers: { 'Content-Type': 'application/json' }
-    })
+  // useEffect(() => {
+  //   setMesActual(getMonth(indiceMes));
+  //   let arrIds = usuarios.map(x => x.id)
+  //   setCargando(true);
+  //   axios
+  //     .post(
+  //       //.get(
+  //       //'http://localhost:3003/actividades',
+  //       ('frmCalendarioV2.aspx/ObtenerActividadesxTerceIdxFechaInixFechaFin', {FechaInicial:dayjs(getMonth(indiceMes)[0][0]).format("DD-MM-YY").toString(),FechaFinal:dayjs(getMonth(indiceMes)[4][6]).format("DD-MM-YY").toString(),ArrIds: arrIds ? arrIds : [],Tipo:opcionVista}, {
+  //     headers: { 'Content-Type': 'application/json' }
+  //   })
       
-      ).then((res) => {
-        //console.log(res);
-        if (res.status === 200) {          
-          if (res.data.d !== undefined) {
-            //console.log(res.data.d);
-            setActividadesMes(res.data.d)
-            //document.querySelector('#txtBusqueda').value = e.target.value;
-          }
-        }
-      })
-      .catch(() => {      
-        setError(true);
-      })
-      .then(() => {      
-       setCargando(false);
-      });
-    },[indiceMes, setActividadesMes, usuarios])
+  //     ).then((res) => {
+  //       //console.log(res);
+  //       if (res.status === 200) {          
+  //         if (res.data.d !== undefined) {
+  //           //console.log(res.data.d);
+  //           setActividadesMes(res.data.d)
+  //           //document.querySelector('#txtBusqueda').value = e.target.value;
+  //         }
+  //       }
+  //     })
+  //     .catch(() => {      
+  //       setError(true);
+  //     })
+  //     .then(() => {      
+  //      setCargando(false);
+  //     });
+  //   },[indiceMes, setActividadesMes, usuarios])
   
-      if(cargando){
-        return <Spinner/>
-      }
-      if(error){
-        return <div>Ha ocurrido un error</div>
-      }
+  //     if(cargando){
+  //       return <Spinner/>
+  //     }
+  //     if(error){
+  //       return <div>Ha ocurrido un error</div>
+  //     }
 
 
   // if (cargando) {

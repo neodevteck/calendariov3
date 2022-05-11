@@ -1,5 +1,6 @@
 import dayjs from 'dayjs';
 import { useState,useMemo,useEffect } from 'react';
+import axios from 'axios';
 
 import GlobalContext from './GlobalContext';
 const ContextWrapper = (props) => {
@@ -12,6 +13,25 @@ const ContextWrapper = (props) => {
   const [actividadesMes, setActividadesMes] = useState([]); 
   const colores = ['pink-500','red-500','purple-600','deep-purple-600','indigo-600','blue-600','cyan-600','teal-600','green-600','lime-600',
   'yellow-600','orange-600','brown-500','grey-500','blue-grey-600'];  
+
+
+  useEffect(() => {
+    console.log('USUARIO LOGIN')
+    axios
+    //.get('http://localhost:3003/usuario')    
+    .post('frmCalendarioV2.aspx/ObtenerUsuario', {}, {
+      headers: { 'Content-Type': 'application/json' }
+    }).then((res) => {
+        if (res.status === 200) {
+          if (res.data.d !== undefined) {            
+            setIdUsuarioLogueado(res.data.d.id)
+            setUsuarios([{id:res.data.d.id,nombre:res.data.d.nombre,checked:true,num:0}])
+          }
+        }
+      }).catch(() => {
+        alert('Ha ocurrido un error')
+      })    
+  }, []);
 
   useEffect(() => {
     if (mesMiniCalendario !== null) {

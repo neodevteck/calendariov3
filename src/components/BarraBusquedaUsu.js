@@ -11,7 +11,7 @@ export default function BarraBusquedaUsu() {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
 
-
+///ObjComplejospTraerBusquedaTerceros
   const { setUsuarios, usuarios } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
     console.log('AGREGAR USUARIO');
