@@ -1,5 +1,5 @@
 import React, { useContext } from 'react'
-import GlobalContext from '../Context/GlobalContext'
+import GlobalContext from '../context/GlobalContext'
 import Spinner from './Spinner'
 import App from '../App'
 

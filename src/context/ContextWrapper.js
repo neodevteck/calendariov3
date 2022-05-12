@@ -1,15 +1,17 @@
 import dayjs from 'dayjs';
-import { useState,useMemo,useEffect } from 'react';
+import { useState,useEffect } from 'react';
 import axios from 'axios';
 
 import GlobalContext from './GlobalContext';
 const ContextWrapper = (props) => {
   const [indiceMes, setIndiceMes] = useState(dayjs().locale('es').month());
   const [mesMiniCalendario, setMesMiniCalendario] = useState(null);
+  const [opcionVista, setOpcionVista] = useState(1);
+
   const [diaSeleccionado, setDiaSeleccionado] = useState(dayjs());
   const [mostrarModalDia, setMostrarModalDia] = useState(false);
   const [idUsuarioLogueado, setIdUsuarioLogueado] = useState(0);
-  const [usuarios, setUsuarios] = useState([]);
+  const [usuarios, setUsuarios] = useState(null);
   const [actividadesMes, setActividadesMes] = useState([]); 
   const colores = ['pink-500','red-500','purple-600','deep-purple-600','indigo-600','blue-600','cyan-600','teal-600','green-600','lime-600',
   'yellow-600','orange-600','brown-500','grey-500','blue-grey-600'];  
@@ -45,16 +47,16 @@ const ContextWrapper = (props) => {
     ); 
   }
 
-  const filtrarActividades = useMemo(() => {      
-    //console.log(actividadesMes)
-    console.log('filtro')
-    return actividadesMes ? actividadesMes.filter((evt) =>
-      usuarios
-        .filter((lbl) => lbl.checked)
-        .map((lbl) => lbl.id)
-        .includes(evt.TERCERECURSOCTROLID)
-    ):[]
-  }, [actividadesMes, usuarios]);
+  // const filtrarActividades = useMemo(() => {      
+  //   //console.log(actividadesMes)
+  //   console.log('filtro')
+  //   return actividadesMes ? actividadesMes.filter((evt) =>
+  //     usuarios
+  //       .filter((lbl) => lbl.checked)
+  //       .map((lbl) => lbl.id)
+  //       .includes(evt.TERCERECURSOCTROLID)
+  //   ):[]
+  // }, [actividadesMes, usuarios]);
 
   return (
     <GlobalContext.Provider
@@ -75,7 +77,9 @@ const ContextWrapper = (props) => {
         colores,
         actividadesMes,
         setActividadesMes,
-        filtrarActividades
+        //filtrarActividades,
+        opcionVista,
+        setOpcionVista
       }}
     >
       {props.children}
