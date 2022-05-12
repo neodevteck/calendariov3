@@ -10,12 +10,12 @@ import Contenido from './components/Contenido';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <QueryClientProvider client={client}>
       <ContextWrapper>
         <Contenido />
       </ContextWrapper>
       <ReactQueryDevtools />
     </QueryClientProvider>
-  </React.StrictMode>
+  // </React.StrictMode>
 );

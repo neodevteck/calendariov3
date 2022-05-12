@@ -46,9 +46,9 @@ export default function BarraBusquedaUsu() {
       
       setCargando(true);
       axios
-        //.post(
-        .get(
-          'http://localhost:3003/usuarios',
+        .post(
+        //.get(
+          //'http://localhost:3003/usuarios',
           'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
           { prefixText: e.target.value },
           {

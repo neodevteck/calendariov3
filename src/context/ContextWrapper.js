@@ -23,7 +23,8 @@ const ContextWrapper = (props) => {
     //.get('http://localhost:3003/usuario')    
     .post('frmCalendarioV2.aspx/ObtenerUsuario', {}, {
       headers: { 'Content-Type': 'application/json' }
-    }).then((res) => {
+    })
+    .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {            
             setIdUsuarioLogueado(res.data.d.id)

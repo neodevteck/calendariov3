@@ -20,9 +20,9 @@ export const fetchActividades = (
         headers: { 'Content-Type': 'application/json' },
       }
     )
-    // .get('http://localhost:3003/actividades')
+    //.get('http://localhost:3003/acts')
     .then((res) => res.data);
 
 export default function useActividades(FechaInicial,FechaFinal,ArrIds,OpcionVista) {
-  return useQuery(['actividades'],() => fetchActividades(FechaInicial,FechaFinal,ArrIds,OpcionVista));
+  return useQuery(['actividades',FechaInicial+'-'+FechaFinal+'-'+ArrIds+'-'+OpcionVista],() => fetchActividades(FechaInicial,FechaFinal,ArrIds,OpcionVista));
 }
