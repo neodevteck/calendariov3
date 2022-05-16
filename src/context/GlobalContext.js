@@ -9,18 +9,19 @@ const GlobalContext = React.createContext({
   setDiaSeleccionado: (val) => {},
   mostrarModalDia: false,
   setMostrarModalDia: (val) => {},
+  mostrarModalActividad: false,
+  setMostrarModalActividad: (val) => {},
   idUsuarioLogueado: 0,
   setIdUsuarioLogueado: (val) => {},
   usuarios: [],
   setUsuarios: (val) => {},
   updateUsuario: (val) => {},
-  colores:[],
-  actividadesMes:[],
-  setActividadesMes: (val)=>{},
+  colores: [],
+  actividadesMes: [],
+  setActividadesMes: (val) => {},
   //filtrarActividades: ()=>{},
-  setOpcionVista: ()=>{},
-  opcionVista:0
-
+  setOpcionVista: () => {},
+  opcionVista: 0,
 });
 
 export default GlobalContext;

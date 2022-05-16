@@ -1,5 +1,5 @@
 import dayjs from 'dayjs';
-import { useState,useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import GlobalContext from './GlobalContext';
@@ -10,30 +10,58 @@ const ContextWrapper = (props) => {
 
   const [diaSeleccionado, setDiaSeleccionado] = useState(dayjs());
   const [mostrarModalDia, setMostrarModalDia] = useState(false);
+  const [mostrarModalActividad, setMostrarModalActividad] = useState(false);
+
   const [idUsuarioLogueado, setIdUsuarioLogueado] = useState(0);
   const [usuarios, setUsuarios] = useState(null);
-  const [actividadesMes, setActividadesMes] = useState([]); 
-  const colores = ['pink-500','red-500','purple-600','deep-purple-600','indigo-600','blue-600','cyan-600','teal-600','green-600','lime-600',
-  'yellow-600','orange-600','brown-500','grey-500','blue-grey-600'];  
-
+  const [actividadesMes, setActividadesMes] = useState([]);
+  const colores = [
+    'pink-500',
+    'red-500',
+    'purple-600',
+    'deep-purple-600',
+    'indigo-600',
+    'blue-600',
+    'cyan-600',
+    'teal-600',
+    'green-600',
+    'lime-600',
+    'yellow-600',
+    'orange-600',
+    'brown-500',
+    'grey-500',
+    'blue-grey-600',
+  ];
 
   useEffect(() => {
-    console.log('USUARIO LOGIN')
+    console.log('USUARIO LOGIN');
     axios
-    //.get('http://localhost:3003/usuario')    
-    .post('frmCalendarioV2.aspx/ObtenerUsuario', {}, {
-      headers: { 'Content-Type': 'application/json' }
-    })
-    .then((res) => {
+      .get('http://localhost:3003/usuario')
+      // .post(
+      //   'frmCalendarioV2.aspx/ObtenerUsuario',
+      //   {},
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //   }
+      // )
+      .then((res) => {
         if (res.status === 200) {
-          if (res.data.d !== undefined) {            
-            setIdUsuarioLogueado(res.data.d.id)
-            setUsuarios([{id:res.data.d.id,nombre:res.data.d.nombre,checked:true,num:0}])
+          if (res.data.d !== undefined) {
+            setIdUsuarioLogueado(res.data.d.id);
+            setUsuarios([
+              {
+                id: res.data.d.id,
+                nombre: res.data.d.nombre,
+                checked: true,
+                num: 0,
+              },
+            ]);
           }
         }
-      }).catch(() => {
-        alert('Ha ocurrido un error')
-      })    
+      })
+      .catch(() => {
+        alert('Ha ocurrido un error');
+      });
   }, []);
 
   useEffect(() => {
@@ -41,14 +69,16 @@ const ContextWrapper = (props) => {
       setMesMiniCalendario(mesMiniCalendario);
     }
   }, [mesMiniCalendario]);
-  
+
   function updateUsuario(usu) {
-    setUsuarios(
-      usuarios.map((lbl) => (lbl.id === usu.id ? usu : lbl))
-    ); 
+    setUsuarios(usuarios.map((x) => (x.id === usu.id ? usu : x)));
   }
 
-  // const filtrarActividades = useMemo(() => {      
+  function DeleteUsuario(id) {
+    setUsuarios(usuarios.filter((x) => x.id !== id));
+  }
+
+  // const filtrarActividades = useMemo(() => {
   //   //console.log(actividadesMes)
   //   console.log('filtro')
   //   return actividadesMes ? actividadesMes.filter((evt) =>
@@ -70,17 +100,20 @@ const ContextWrapper = (props) => {
         setDiaSeleccionado,
         mostrarModalDia,
         setMostrarModalDia,
+        mostrarModalActividad,
+        setMostrarModalActividad,
         idUsuarioLogueado,
         setIdUsuarioLogueado,
         usuarios,
         setUsuarios,
         updateUsuario,
+        DeleteUsuario,
         colores,
         actividadesMes,
         setActividadesMes,
         //filtrarActividades,
         opcionVista,
-        setOpcionVista
+        setOpcionVista,
       }}
     >
       {props.children}

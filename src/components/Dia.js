@@ -1,14 +1,14 @@
-import React, { useContext,useState } from 'react';
+import React, { useContext, useState } from 'react';
 import dayjs from 'dayjs';
 import GlobalContext from '../context/GlobalContext';
-const Dia = ({ dia,actividades, indice }) => {
+const Dia = ({ dia, actividades, indice }) => {
   //console.log(actividades)
   const {
     //filtrarActividades,
-    usuarios,   
+    usuarios,
     idUsuarioLogueado,
     colores,
-    setDiaSeleccionado
+    setDiaSeleccionado,
   } = useContext(GlobalContext);
 
   const { setMostrarModalDia } = useContext(GlobalContext);
@@ -26,10 +26,7 @@ const Dia = ({ dia,actividades, indice }) => {
       evt.ESTADO_FLUJOTRABAJO === 1
     ) {
       claseColor = 'colorAzulClaro';
-    } else if (
-      evt.USUARIOSID === idUsuarioLogueado &&
-      evt.ESTADO === 1
-    ) {
+    } else if (evt.USUARIOSID === idUsuarioLogueado && evt.ESTADO === 1) {
       claseColor = 'colorAzul';
     }
     return claseColor;
@@ -39,10 +36,10 @@ const Dia = ({ dia,actividades, indice }) => {
     //console.log(evt.TERCERECURSOCTROLID_FLUJOTRABAJO);
     for (let i = 0; i < usuarios.length; i++) {
       if (
-        usuarios[i].id === evt.TERCERECURSOCTROLID ||
-        usuarios[i].id === evt.TERCERECURSOCTROL2ID ||
-        usuarios[i].id === evt.TERCERECURSOCTROL3ID ||
-        usuarios[i].id === evt.TERCERECURSOCTROL4ID
+        usuarios[i].id == evt.TERCERECURSOCTROLID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL2ID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL3ID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL4ID
       ) {
         return 'bg-' + colores[usuarios[i].num];
       }
@@ -59,8 +56,8 @@ const Dia = ({ dia,actividades, indice }) => {
         {/* {indice === 0 && (
           <p className='text-sm mt-1'>{dia} </p>
         )} */}
-        <p className={`text-sm p-1 my-1 text-center  ${claseDiaActual()}`} >
-        {dia.format('DD')}
+        <p className={`text-sm p-1 my-1 text-center  ${claseDiaActual()}`}>
+          {dia.format('DD')}
         </p>
       </header>
       <div
@@ -69,30 +66,28 @@ const Dia = ({ dia,actividades, indice }) => {
           setDiaSeleccionado(dia);
         }}
       >
-        {actividades.map((act, idx) =>
-       
-          (
+        {actividades.map((act, idx) => (
           <div
-          className={`${ObtenerClaseColor(
-            act
-          )} text-gray-600 text-sm rounded truncate p-0 m-0`}
+            className={`${ObtenerClaseColor(
+              act
+            )} text-gray-600 text-sm rounded truncate p-0 m-0`}
             key={idx}
-            // onClick={() => (window.open('../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID='+ evt.FLUJOTRABAJOID_FLUJOTRABAJO, '_blank'))}
             onClick={() => (
               (window.location.href = `../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID=${act.FLUJOTRABAJOID}`),
               '_blank'
-            )}            
-          > 
-           <div
+            )}
+          >
+            <div
               className={`h-3 w-3 ${ObtenerColorUsuario(
                 act
               )} rounded-full inline-block`}
-            ></div>           
-            {act.FLUJOTRABAJOID.toLocaleString()} -{' '}
-            {act.ASUNTO}
+            ></div>
+            <span>
+              {act.ASUNTO}
+              {/* {act.FLUJOTRABAJOID.toLocaleString()}  */}
+            </span>
           </div>
-        )
-        )}
+        ))}
       </div>
     </div>
   );

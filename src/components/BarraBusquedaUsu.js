@@ -10,12 +10,11 @@ export default function BarraBusquedaUsu() {
   const [error, setError] = useState(false);
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
-
-///ObjComplejospTraerBusquedaTerceros
+  ///ObjComplejospTraerBusquedaTerceros
   const { setUsuarios, usuarios } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
     console.log('AGREGAR USUARIO');
-    if(usuarios.length <15){
+    if (usuarios.length < 15) {
       setUsuarios((prevState) => {
         return [
           ...prevState.filter((item) => item.id !== obj.TERCEID_USU),
@@ -30,52 +29,51 @@ export default function BarraBusquedaUsu() {
     }
     setListaCoincidencias([]);
     setTextoBusqueda('');
-    document.querySelector('#txtBusqueda').focus()
+    document.querySelector('#txtBusqueda').focus();
   }
 
-  const test = (e) =>{
-    setTextoBusqueda(e.target.value)
-    buscaUsuarios(e)
-  }
+  const test = (e) => {
+    setTextoBusqueda(e.target.value);
+    buscaUsuarios(e);
+  };
 
   const buscaUsuarios = React.useMemo(
-    () => debounce((e) => {
-      //setTextoBusqueda(e.target.value);   
-      console.log(e.target.value)
-     if (e.target.value !== '') {    
-      
-      setCargando(true);
-      axios
-        .post(
-        //.get(
-          //'http://localhost:3003/usuarios',
-          'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
-          { prefixText: e.target.value },
-          {
-            headers: { 'Content-Type': 'application/json' },
-          }
-        )
-        .then((res) => {
-          console.log(res);
-          if (res.status === 200) {
-            if (res.data.d !== undefined) {
-              console.log(res.data.d);
-              setListaCoincidencias(res.data.d)
-              //document.querySelector('#txtBusqueda').value = e.target.value;
-            }
-          }
-        })
-        .catch(() => {
-          setError(true);
-        })
-        .then(() => {
-          setCargando(false);
-        });
-    } 
-    else {
-      setListaCoincidencias([]);
-    }
-    }, 250),
+    () =>
+      debounce((e) => {
+        //setTextoBusqueda(e.target.value);
+        //console.log(e.target.value);
+        if (e.target.value !== '') {
+          setCargando(true);
+          axios
+            //.post(
+            .get(
+              'http://localhost:3003/usuarios'
+              //'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
+              // { prefixText: e.target.value },
+              // {
+              //   headers: { 'Content-Type': 'application/json' },
+              // }
+            )
+            .then((res) => {
+              console.log(res);
+              if (res.status === 200) {
+                if (res.data.d !== undefined) {
+                  //console.log(res.data.d);
+                  setListaCoincidencias(res.data.d);
+                  //document.querySelector('#txtBusqueda').value = e.target.value;
+                }
+              }
+            })
+            .catch(() => {
+              setError(true);
+            })
+            .then(() => {
+              setCargando(false);
+            });
+        } else {
+          setListaCoincidencias([]);
+        }
+      }, 250),
     []
   );
 
@@ -87,9 +85,8 @@ export default function BarraBusquedaUsu() {
   }
   return (
     <React.Fragment>
-     
       <input
-      autoFocus 
+        autoFocus
         type='text'
         id='txtBusqueda'
         value={textoBusqueda}
@@ -99,15 +96,13 @@ export default function BarraBusquedaUsu() {
         className='pt-2 border-0 text-black-200 text-l pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500  '
       />
       <ul className='suggestions'>
-        {
-     
-        listaCoincidencias.map((row, i) => (
+        {listaCoincidencias.map((row, i) => (
           <React.Fragment key={i}>
             <li className='' onClick={() => AgregarUsuario(row)}>
               {row.NOMCOMPL_USU}
             </li>
           </React.Fragment>
-        ))  }
+        ))}
       </ul>
       {/* <ListaUsuarios lis = {ListaCoincidencias} /> */}
     </React.Fragment>
