@@ -1,6 +1,8 @@
 import React, { useContext, useState } from 'react';
 import dayjs from 'dayjs';
+
 import GlobalContext from '../context/GlobalContext';
+
 const Dia = ({ dia, actividades, indice }) => {
   //console.log(actividades)
   const {
@@ -13,6 +15,9 @@ const Dia = ({ dia, actividades, indice }) => {
 
   const { setMostrarModalDia } = useContext(GlobalContext);
   function claseDiaActual() {
+    console.log(dia.format('DD-MM-YY'));
+    console.log(dayjs().format('DD-MM-YY'));
+
     return dia.format('DD-MM-YY') === dayjs().format('DD-MM-YY')
       ? 'bg-blue-600 text-white rounded-full w-7'
       : '';
@@ -42,6 +47,34 @@ const Dia = ({ dia, actividades, indice }) => {
         usuarios[i].id == evt.TERCERECURSOCTROL4ID
       ) {
         return 'bg-' + colores[usuarios[i].num];
+      }
+    }
+    return '';
+  }
+
+  function ObtenerHora(evt) {
+    //console.log(evt.TERCERECURSOCTROLID_FLUJOTRABAJO);
+    for (let i = 0; i < usuarios.length; i++) {
+      if (usuarios[i].id == evt.TERCERECURSOCTROLID && evt.HORACALINI !== '') {
+        return evt.HORACALINI;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL2ID &&
+        evt.HORACALINI2 !== ''
+      ) {
+        return evt.HORACALINI2;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL3ID &&
+        evt.HORACALINI3 !== ''
+      ) {
+        return evt.HORACALINI3;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL4ID &&
+        evt.HORACALINI4 !== ''
+      ) {
+        return evt.HORACALINI4;
       }
     }
     return '';
@@ -84,6 +117,8 @@ const Dia = ({ dia, actividades, indice }) => {
             ></div>
             <span>
               {act.ASUNTO}
+              {/* {ObtenerHora(act)} */}
+
               {/* {act.FLUJOTRABAJOID.toLocaleString()}  */}
             </span>
           </div>
