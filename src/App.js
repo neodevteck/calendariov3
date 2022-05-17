@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {mostrarModalDia === true && <ModalDia />}
+      {mostrarModalDia === true && <ModalDia data />}
       {mostrarModalActividad === true && <ModalActividad />}
 
       <div className='h-screen flex flex-col'>
