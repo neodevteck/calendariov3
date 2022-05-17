@@ -40,7 +40,7 @@ const App = () => {
   } else if (status === 'error') {
     return <div>Error</div>;
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <React.Fragment>

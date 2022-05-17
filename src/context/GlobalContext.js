@@ -7,6 +7,8 @@ const GlobalContext = React.createContext({
   setMesMiniCalendario: (val) => {},
   diaSeleccionado: 0,
   setDiaSeleccionado: (val) => {},
+  actividadSeleccionada: 0,
+  setActividadSeleccionada: (val) => {},
   mostrarModalDia: false,
   setMostrarModalDia: (val) => {},
   mostrarModalActividad: false,

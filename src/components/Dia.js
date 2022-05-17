@@ -11,12 +11,13 @@ const Dia = ({ dia, actividades, indice }) => {
     idUsuarioLogueado,
     colores,
     setDiaSeleccionado,
+    setActividadSeleccionada
   } = useContext(GlobalContext);
 
-  const { setMostrarModalDia } = useContext(GlobalContext);
+  const { setMostrarModalDia,setMostrarModalActividad } = useContext(GlobalContext);
   function claseDiaActual() {
-    console.log(dia.format('DD-MM-YY'));
-    console.log(dayjs().format('DD-MM-YY'));
+    // console.log(dia.format('DD-MM-YY'));
+    // console.log(dayjs().format('DD-MM-YY'));
 
     return dia.format('DD-MM-YY') === dayjs().format('DD-MM-YY')
       ? 'bg-blue-600 text-white rounded-full w-7'
@@ -83,9 +84,8 @@ const Dia = ({ dia, actividades, indice }) => {
   return (
     <div
       className='border border-gray-200 flex flex-col'
-      onClick={() => setMostrarModalDia(true)}
     >
-      <header className='flex flex-col items-center'>
+      <header className='flex flex-col items-center'  onClick={() => {setMostrarModalDia(true);setDiaSeleccionado(dia)}}>
         {/* {indice === 0 && (
           <p className='text-sm mt-1'>{dia} </p>
         )} */}
@@ -95,9 +95,7 @@ const Dia = ({ dia, actividades, indice }) => {
       </header>
       <div
         className='flex-1 cursor-pointer'
-        onClick={() => {
-          setDiaSeleccionado(dia);
-        }}
+       
       >
         {actividades.map((act, idx) => (
           <div
@@ -105,10 +103,12 @@ const Dia = ({ dia, actividades, indice }) => {
               act
             )} text-gray-600 text-sm rounded truncate p-0 m-0`}
             key={idx}
-            onClick={() => (
-              (window.location.href = `../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID=${act.FLUJOTRABAJOID}`),
-              '_blank'
-            )}
+            onClick={() => {setMostrarModalActividad(true); setActividadSeleccionada(act.FLUJOTRABAJOID)} }
+            // onClick={(e) => (
+            //   // (window.location.href = `../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID=${act.FLUJOTRABAJOID}`),
+            //   // '_blank'
+            //   console.log(act.FLUJOTRABAJOID)
+            // )}
           >
             <div
               className={`h-3 w-3 ${ObtenerColorUsuario(
