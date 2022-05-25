@@ -56,26 +56,23 @@ const Dia = ({ dia, actividades, indice }) => {
   function ObtenerHora(evt) {
     //console.log(evt.TERCERECURSOCTROLID_FLUJOTRABAJO);
     for (let i = 0; i < usuarios.length; i++) {
-      if (usuarios[i].id == evt.TERCERECURSOCTROLID && evt.HORACALINI !== '') {
-        return evt.HORACALINI;
+      if (usuarios[i].id == evt.TERCERECURSOCTROLID && evt.HORACALINI !== '' && evt.HORACALFIN !== '00:00') {
+        return evt.HORACALINI + '-' + evt.HORACALFIN;
       }
       if (
-        usuarios[i].id == evt.TERCERECURSOCTROL2ID &&
-        evt.HORACALINI2 !== ''
+        usuarios[i].id == evt.TERCERECURSOCTROL2ID && evt.HORACALINI2 !== '' && evt.HORACALFIN2 !== '00:00'
       ) {
-        return evt.HORACALINI2;
+        return evt.HORACALINI2 + '-' + evt.HORACALFIN2;
       }
       if (
-        usuarios[i].id == evt.TERCERECURSOCTROL3ID &&
-        evt.HORACALINI3 !== ''
+        usuarios[i].id == evt.TERCERECURSOCTROL3ID && evt.HORACALINI3 !== '' && evt.HORACALFIN3 !== '00:00'
       ) {
-        return evt.HORACALINI3;
+        return evt.HORACALINI3 + '-' + evt.HORACALFIN3;
       }
       if (
-        usuarios[i].id == evt.TERCERECURSOCTROL4ID &&
-        evt.HORACALINI4 !== ''
+        usuarios[i].id == evt.TERCERECURSOCTROL4ID && evt.HORACALINI4 !== '' && evt.HORACALFIN4 !== '00:00'
       ) {
-        return evt.HORACALINI4;
+        return evt.HORACALINI4 + '-' + evt.HORACALFIN4;
       }
     }
     return '';
@@ -103,7 +100,7 @@ const Dia = ({ dia, actividades, indice }) => {
               act
             )} text-gray-600 text-sm rounded truncate p-0 m-0`}
             key={idx}
-            onClick={() => {setMostrarModalActividad(true); setActividadSeleccionada(act.FLUJOTRABAJOID)} }
+            onClick={() => {setMostrarModalActividad(true); setActividadSeleccionada(act)} }
             // onClick={(e) => (
             //   // (window.location.href = `../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID=${act.FLUJOTRABAJOID}`),
             //   // '_blank'
@@ -115,12 +112,14 @@ const Dia = ({ dia, actividades, indice }) => {
                 act
               )} rounded-full inline-block`}
             ></div>
-            <span>
-              {act.ASUNTO}
-              {/* {ObtenerHora(act)} */}
-
+             <span className='text-xs'>
+            {ObtenerHora(act)}
+            </span>
+            <span  className='text-xs rounded truncate p-0 m-0'>
+              {' ' + act.ASUNTO}
               {/* {act.FLUJOTRABAJOID.toLocaleString()}  */}
             </span>
+           
           </div>
         ))}
       </div>

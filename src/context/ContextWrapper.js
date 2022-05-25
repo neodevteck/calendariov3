@@ -10,7 +10,7 @@ const ContextWrapper = (props) => {
   const [opcionVista, setOpcionVista] = useState(1);
 
   const [diaSeleccionado, setDiaSeleccionado] = useState(dayjs());
-  const [actividadSeleccionada, setActividadSeleccionada] = useState(0);
+  const [actividadSeleccionada, setActividadSeleccionada] = useState(null);
 
   const [mostrarModalDia, setMostrarModalDia] = useState(false);
   const [mostrarModalActividad, setMostrarModalActividad] = useState(false);
