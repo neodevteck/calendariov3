@@ -1,6 +1,7 @@
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
+import Error from '../components/Error';
 
 import GlobalContext from './GlobalContext';
 const ContextWrapper = (props) => {
@@ -38,14 +39,14 @@ const ContextWrapper = (props) => {
   useEffect(() => {
     console.log('USUARIO LOGIN');
     axios
-      .get('http://localhost:3003/usuario')
-      // .post(
-      //   'frmCalendarioV2.aspx/ObtenerUsuario',
-      //   {},
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //   }
-      // )
+      //.get('http://localhost:3003/usuario')
+      .post(
+        'frmCalendarioV2.aspx/ObtenerUsuario',
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
@@ -62,7 +63,7 @@ const ContextWrapper = (props) => {
         }
       })
       .catch(() => {
-        alert('Ha ocurrido un error');
+         alert('Ha ocurrido un error');window.location = 'frmCalendario.aspx'
       });
   }, []);
 

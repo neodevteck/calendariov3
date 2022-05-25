@@ -2,6 +2,7 @@ import React, { useState, useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import axios from 'axios';
 import Spinner from './Spinner';
+
 import { debounce } from '../util/util';
 
 export default function BarraBusquedaUsu() {
@@ -11,7 +12,7 @@ export default function BarraBusquedaUsu() {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   ///ObjComplejospTraerBusquedaTerceros
-  const { setUsuarios, usuarios } = useContext(GlobalContext);
+  const { setUsuarios, usuarios,idUsuarioLogueado } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
     console.log('AGREGAR USUARIO');
     if (usuarios.length < 15) {
@@ -45,14 +46,14 @@ export default function BarraBusquedaUsu() {
         if (e.target.value !== '') {
           setCargando(true);
           axios
-            //.post(
-            .get(
-              'http://localhost:3003/usuarios'
-              //'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
-              // { prefixText: e.target.value },
-              // {
-              //   headers: { 'Content-Type': 'application/json' },
-              // }
+          //.get(
+            //'http://localhost:3003/usuarios')
+            .post(
+              'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
+              { prefixText: e.target.value },
+              {
+                headers: { 'Content-Type': 'application/json' },
+              }
             )
             .then((res) => {
               console.log(res);
@@ -96,7 +97,9 @@ export default function BarraBusquedaUsu() {
         className='pt-2 border-0 text-black-200 text-l pb-2 w-full border-b-2 border-gray-200 focus:outline-none focus:ring-0 focus:border-blue-500  '
       />
       <ul className='suggestions'>
-        {listaCoincidencias.map((row, i) => (
+        {listaCoincidencias
+        .filter((x) => x.TERCEID_USU !== idUsuarioLogueado)
+        .map((row, i) => (
           <React.Fragment key={i}>
             <li className='' onClick={() => AgregarUsuario(row)}>
               {row.NOMCOMPL_USU}

@@ -28,7 +28,18 @@ const EncabezadoCalendario = () => {
 
   return (
     <React.Fragment>
+      
       <header className='px-4 py-2 flex items-center'>
+      <button 
+       onClick={(e) => (
+              (window.location.href = `frmCalendario.aspx`),
+              '_blank'
+            )}
+      >
+          <span className='cursor-pointer text-gray-600 mx-2'>
+            <i className='fa fa-arrow-left'></i>
+          </span>
+        </button>
         <h1 className='mr-10 text-xl text-gray-500 fond-bold'>Calendario</h1>
         <button onClick={Resetear} className='border rounded py-2 px-4 mr-5'>
           Hoy

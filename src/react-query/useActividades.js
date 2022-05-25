@@ -8,19 +8,19 @@ export const fetchActividades = (
   OpcionVista
 ) =>
   axios
-    // .post(
-    //   'frmCalendarioV2.aspx/ObtenerActividadesxTerceIdxFechaInixFechaFin',
-    //   {
-    //     FechaInicial: FechaInicial,
-    //     FechaFinal: FechaFinal,
-    //     ArrIds: ArrIds,
-    //     Tipo: OpcionVista,
-    //   },
-    //   {
-    //     headers: { 'Content-Type': 'application/json' },
-    //   }
-    // )
-    .get('http://localhost:3003/actividades')
+    .post(
+      'frmCalendarioV2.aspx/ObtenerActividadesxTerceIdxFechaInixFechaFin',
+      {
+        FechaInicial: FechaInicial,
+        FechaFinal: FechaFinal,
+        ArrIds: ArrIds,
+        Tipo: OpcionVista,
+      },
+      {
+        headers: { 'Content-Type': 'application/json' },
+      }
+    )
+    //.get('http://localhost:3003/actividades')
     .then((res) => res.data);
 
 export default function useActividades(
