@@ -53,7 +53,7 @@ const App = () => {
 
   return (
     <React.Fragment>
-      {mostrarModalDia === true && <ModalDia  />}
+      {mostrarModalDia === true && <ModalDia  usuIds = {arrIds} />}
       {mostrarModalActividad === true && <ModalActividad />}
 
       <div className='h-screen flex flex-col'>

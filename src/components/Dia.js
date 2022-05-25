@@ -118,8 +118,7 @@ const Dia = ({ dia, actividades, indice }) => {
             <span  className='text-xs rounded truncate p-0 m-0'>
               {' ' + act.ASUNTO}
               {/* {act.FLUJOTRABAJOID.toLocaleString()}  */}
-            </span>
-           
+            </span>          
           </div>
         ))}
       </div>
