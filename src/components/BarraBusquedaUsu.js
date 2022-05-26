@@ -14,7 +14,7 @@ export default function BarraBusquedaUsu() {
   ///ObjComplejospTraerBusquedaTerceros
   const { setUsuarios, usuarios,idUsuarioLogueado } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
-    console.log('AGREGAR USUARIO');
+    //console.log('AGREGAR USUARIO');
     if (usuarios.length < 10) {
       setUsuarios((prevState) => {
         return [
@@ -56,7 +56,7 @@ export default function BarraBusquedaUsu() {
               }
             )
             .then((res) => {
-              console.log(res);
+              //console.log(res);
               if (res.status === 200) {
                 if (res.data.d !== undefined) {
                   //console.log(res.data.d);

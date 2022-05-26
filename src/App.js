@@ -13,7 +13,7 @@ import ModalActividad from './components/ModalActividad';
 import Error from './components/Error';
 
 const App = () => {
-  console.log('APP');
+  //console.log('APP');
   const [mesActual, setMesActual] = useState(getMonth());
   const {
     indiceMes,
@@ -49,7 +49,7 @@ const App = () => {
   } else if (status === 'error') {
     return <Error/>
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <React.Fragment>
