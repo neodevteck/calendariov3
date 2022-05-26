@@ -15,7 +15,7 @@ export default function BarraBusquedaUsu() {
   const { setUsuarios, usuarios,idUsuarioLogueado } = useContext(GlobalContext);
   function AgregarUsuario(obj) {
     console.log('AGREGAR USUARIO');
-    if (usuarios.length < 15) {
+    if (usuarios.length < 10) {
       setUsuarios((prevState) => {
         return [
           ...prevState.filter((item) => item.id !== obj.TERCEID_USU),

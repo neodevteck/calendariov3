@@ -3,7 +3,7 @@ import { getMonth } from './util/util';
 import EncabezadoCalendario from './components/EncabezadoCalendario';
 import MenuLateral from './components/MenuLateral';
 import Mes from './components/Mes';
-import Dia from './components/Dia'
+import DetalleDia from './components/DetalleDia'
 import GlobalContext from './context/GlobalContext';
 import ModalDia from './components/ModalDia';
 import dayjs from 'dayjs';
@@ -60,7 +60,11 @@ const App = () => {
         <EncabezadoCalendario />
         <div className='flex flex-1'>
           <MenuLateral />
-          <Mes mes={mesActual} data={data} />
+
+          { opcionVista == '1' && <Mes mes={mesActual} data={data} /> }
+          { opcionVista == '2' && <DetalleDia  data={data} /> }
+
+          
         </div>
       </div>
     </React.Fragment>
