@@ -11,7 +11,6 @@ import Spinner from './components/Spinner';
 import useActividades from './react-query/useActividades';
 import ModalActividad from './components/ModalActividad';
 import Error from './components/Error';
-import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 const App = () => {
   //console.log('APP');

@@ -3,7 +3,8 @@ import dayjs from 'dayjs';
 import GlobalContext from '../context/GlobalContext';
 
 const EncabezadoCalendario = () => {
-  const { indiceMes, setIndiceMes, setOpcionVista } = useContext(GlobalContext);
+  const { indiceMes, setIndiceMes, setOpcionVista, opcionVista } =
+    useContext(GlobalContext);
 
   function mesAnterior() {
     setIndiceMes(indiceMes - 1);
@@ -18,8 +19,8 @@ const EncabezadoCalendario = () => {
         : dayjs().month()
     );
   }
-  function OpcionVista(e) {
-    setOpcionVista(e.target.value);
+  function OpcionVista({ target }) {
+    setOpcionVista(target.value);
   }
 
   return (
@@ -69,10 +70,9 @@ const EncabezadoCalendario = () => {
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none'
           aria-label='.form-select-sm example'
           onChange={OpcionVista}
+          value={opcionVista}
         >
-          <option defaultValue={'1'} value='1'>
-            Mes
-          </option>
+          <option value='1'>Mes</option>
           <option value='2'>Dia</option>
         </select>
       </header>
