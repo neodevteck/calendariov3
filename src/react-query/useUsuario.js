@@ -4,7 +4,7 @@ import axios from 'axios';
 export const fetchUsuario = () =>
   axios
     .get(
-      'frmCalendarioV2.aspx/ObtenerUsuario',
+      'frmCalendarioV2.aspx/ObtenerUsuario'
       //'http://localhost:3003/usuario'
     )
     .then((res) => res.data);

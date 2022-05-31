@@ -21,7 +21,6 @@ const GlobalContext = React.createContext({
   colores: [],
   actividadesMes: [],
   setActividadesMes: (val) => {},
-  //filtrarActividades: ()=>{},
   setOpcionVista: () => {},
   opcionVista: 0,
 });

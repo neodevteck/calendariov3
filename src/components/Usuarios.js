@@ -4,7 +4,6 @@ import GlobalContext from '../context/GlobalContext';
 export default function Usuarios() {
   const { usuarios, updateUsuario, DeleteUsuario, colores, idUsuarioLogueado } =
     useContext(GlobalContext);
-  //console.log(usuarios);
   return (
     <React.Fragment>
       <p className='text-gray-500 font-bold mt-10'>Usuarios</p>

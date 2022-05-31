@@ -20,7 +20,7 @@ export const fetchActividades = (
         headers: { 'Content-Type': 'application/json' },
       }
     )
-    //.get('http://localhost:3003/actividades')
+    //.get('http://localhost:3003/acts2')
     .then((res) => res.data);
 
 export default function useActividades(

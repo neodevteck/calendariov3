@@ -12,7 +12,8 @@ export default function BarraBusquedaUsu() {
   const [textoBusqueda, setTextoBusqueda] = useState('');
 
   ///ObjComplejospTraerBusquedaTerceros
-  const { setUsuarios, usuarios,idUsuarioLogueado } = useContext(GlobalContext);
+  const { setUsuarios, usuarios, idUsuarioLogueado } =
+    useContext(GlobalContext);
   function AgregarUsuario(obj) {
     //console.log('AGREGAR USUARIO');
     if (usuarios.length < 10) {
@@ -46,15 +47,14 @@ export default function BarraBusquedaUsu() {
         if (e.target.value !== '') {
           setCargando(true);
           axios
-          //.get(
-            //'http://localhost:3003/usuarios')
-            .post(
-              'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
-              { prefixText: e.target.value },
-              {
-                headers: { 'Content-Type': 'application/json' },
-              }
-            )
+            .get('http://localhost:3003/usuarios')
+            // .post(
+            //   'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
+            //   { prefixText: e.target.value },
+            //   {
+            //     headers: { 'Content-Type': 'application/json' },
+            //   }
+            // )
             .then((res) => {
               //console.log(res);
               if (res.status === 200) {
@@ -98,14 +98,14 @@ export default function BarraBusquedaUsu() {
       />
       <ul className='suggestions'>
         {listaCoincidencias
-        .filter((x) => x.TERCEID_USU !== idUsuarioLogueado)
-        .map((row, i) => (
-          <React.Fragment key={i}>
-            <li className='' onClick={() => AgregarUsuario(row)}>
-              {row.NOMCOMPL_USU}
-            </li>
-          </React.Fragment>
-        ))}
+          .filter((x) => x.TERCEID_USU !== idUsuarioLogueado)
+          .map((row, i) => (
+            <React.Fragment key={i}>
+              <li className='' onClick={() => AgregarUsuario(row)}>
+                {row.NOMCOMPL_USU}
+              </li>
+            </React.Fragment>
+          ))}
       </ul>
       {/* <ListaUsuarios lis = {ListaCoincidencias} /> */}
     </React.Fragment>

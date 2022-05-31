@@ -13,8 +13,7 @@
     "react-dom": "^18.1.0",
     "react-query": "^3.38.1",
     "react-scripts": "5.0.1",
-    "web-vitals": "^2.1.4",
-    "zustand": "^4.0.0-rc.1"
+    "web-vitals": "^2.1.4"
   },
   "scripts": {
     "start": "react-scripts start",

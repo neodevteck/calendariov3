@@ -1,20 +1,16 @@
 import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Error from '../components/Error';
-
 import GlobalContext from './GlobalContext';
+
 const ContextWrapper = (props) => {
   const [indiceMes, setIndiceMes] = useState(dayjs().locale('es').month());
   const [mesMiniCalendario, setMesMiniCalendario] = useState(null);
   const [opcionVista, setOpcionVista] = useState(1);
-
   const [diaSeleccionado, setDiaSeleccionado] = useState(dayjs());
   const [actividadSeleccionada, setActividadSeleccionada] = useState(null);
-
   const [mostrarModalDia, setMostrarModalDia] = useState(false);
   const [mostrarModalActividad, setMostrarModalActividad] = useState(false);
-
   const [idUsuarioLogueado, setIdUsuarioLogueado] = useState(0);
   const [usuarios, setUsuarios] = useState(null);
   const [actividadesMes, setActividadesMes] = useState([]);
@@ -63,7 +59,8 @@ const ContextWrapper = (props) => {
         }
       })
       .catch(() => {
-         alert('Ha ocurrido un error');window.location = 'frmCalendario.aspx'
+        alert('Ha ocurrido un error');
+        window.location = 'frmCalendario.aspx';
       });
   }, []);
 
@@ -76,22 +73,9 @@ const ContextWrapper = (props) => {
   function updateUsuario(usu) {
     setUsuarios(usuarios.map((x) => (x.id === usu.id ? usu : x)));
   }
-
   function DeleteUsuario(id) {
     setUsuarios(usuarios.filter((x) => x.id !== id));
   }
-
-  // const filtrarActividades = useMemo(() => {
-  //   //console.log(actividadesMes)
-  //   console.log('filtro')
-  //   return actividadesMes ? actividadesMes.filter((evt) =>
-  //     usuarios
-  //       .filter((lbl) => lbl.checked)
-  //       .map((lbl) => lbl.id)
-  //       .includes(evt.TERCERECURSOCTROLID)
-  //   ):[]
-  // }, [actividadesMes, usuarios]);
-
   return (
     <GlobalContext.Provider
       value={{
@@ -114,11 +98,10 @@ const ContextWrapper = (props) => {
         colores,
         actividadesMes,
         setActividadesMes,
-        //filtrarActividades,
         opcionVista,
         setOpcionVista,
         actividadSeleccionada,
-        setActividadSeleccionada
+        setActividadSeleccionada,
       }}
     >
       {props.children}

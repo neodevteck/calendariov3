@@ -3,7 +3,7 @@ import { getMonth } from './util/util';
 import EncabezadoCalendario from './components/EncabezadoCalendario';
 import MenuLateral from './components/MenuLateral';
 import Mes from './components/Mes';
-import DetalleDia from './components/DetalleDia'
+import DetalleDia from './components/DetalleDia';
 import GlobalContext from './context/GlobalContext';
 import ModalDia from './components/ModalDia';
 import dayjs from 'dayjs';
@@ -11,6 +11,7 @@ import Spinner from './components/Spinner';
 import useActividades from './react-query/useActividades';
 import ModalActividad from './components/ModalActividad';
 import Error from './components/Error';
+import { isLabelWithInternallyDisabledControl } from '@testing-library/user-event/dist/utils';
 
 const App = () => {
   //console.log('APP');
@@ -21,19 +22,18 @@ const App = () => {
     mostrarModalActividad,
     usuarios,
     opcionVista,
-    diaSeleccionado
+    diaSeleccionado,
   } = useContext(GlobalContext);
+
   useEffect(() => {
     setMesActual(getMonth(indiceMes));
   }, [indiceMes]);
 
-
   //console.log(diaSeleccionado)
-  
 
-  let arrIds = usuarios ? usuarios
-  .filter((lbl) => lbl.checked)
-  .map((lbl) => lbl.id) : [0]
+  let arrIds = usuarios
+    ? usuarios.filter((lbl) => lbl.checked).map((lbl) => lbl.id)
+    : [0];
   let fechaIni = dayjs(getMonth(indiceMes)[0][0]).format('DD-MM-YY').toString();
   let fechaFin = dayjs(getMonth(indiceMes)[4][6]).format('DD-MM-YY').toString();
 
@@ -47,13 +47,13 @@ const App = () => {
   if (status === 'loading') {
     return <Spinner />;
   } else if (status === 'error') {
-    return <Error/>
+    return <Error />;
   }
-  //console.log(data);
+  console.log(data);
 
   return (
     <React.Fragment>
-      {mostrarModalDia === true && <ModalDia  usuIds = {arrIds} />}
+      {mostrarModalDia === true && <ModalDia usuIds={arrIds} />}
       {mostrarModalActividad === true && <ModalActividad />}
 
       <div className='h-screen flex flex-col'>
@@ -61,10 +61,8 @@ const App = () => {
         <div className='flex flex-1'>
           <MenuLateral />
 
-          { opcionVista == '1' && <Mes mes={mesActual} data={data} /> }
-          { opcionVista == '2' && <DetalleDia  data={data} /> }
-
-          
+          {opcionVista == '1' && <Mes mes={mesActual} data={data} />}
+          {opcionVista == '2' && <DetalleDia data={data} />}
         </div>
       </div>
     </React.Fragment>
