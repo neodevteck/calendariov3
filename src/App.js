@@ -33,8 +33,8 @@ const App = () => {
   let arrIds = usuarios
     ? usuarios.filter((lbl) => lbl.checked).map((lbl) => lbl.id)
     : [0];
-  let fechaIni = dayjs(getMonth(indiceMes)[0][0]).format('DD-MM-YY').toString();
-  let fechaFin = dayjs(getMonth(indiceMes)[4][6]).format('DD-MM-YY').toString();
+  let fechaIni =  opcionVista =='1' ? dayjs(getMonth(indiceMes)[0][0]).format('DD-MM-YY').toString() : diaSeleccionado.toString();
+  let fechaFin =  opcionVista =='1' ? dayjs(getMonth(indiceMes)[4][6]).format('DD-MM-YY').toString() : diaSeleccionado.toString();
 
   const { data, status } = useActividades(
     fechaIni,

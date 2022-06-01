@@ -35,14 +35,14 @@ const ContextWrapper = (props) => {
   useEffect(() => {
     console.log('USUARIO LOGIN');
     axios
-      .get('http://localhost:3003/usuario')
-      // .post(
-      //   'frmCalendarioV2.aspx/ObtenerUsuario',
-      //   {},
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //   }
-      // )
+      //.get('http://localhost:3003/usuario')
+      .post(
+        'frmCalendarioV2.aspx/ObtenerUsuario',
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
@@ -76,6 +76,69 @@ const ContextWrapper = (props) => {
   function DeleteUsuario(id) {
     setUsuarios(usuarios.filter((x) => x.id !== id));
   }
+
+  function ObtenerClaseColor(evt) {
+    let claseColor = 'colorAzul';
+    if (evt.ESTADO === 3) {
+      claseColor = 'colorVerde';
+    } else if (
+      evt.USUARIOSID != idUsuarioLogueado &&
+      evt.ESTADO_FLUJOTRABAJO === 1
+    ) {
+      claseColor = 'colorAzulClaro';
+    } else if (evt.USUARIOSID === idUsuarioLogueado && evt.ESTADO === 1) {
+      claseColor = 'colorAzul';
+    }
+    return claseColor;
+  }
+
+  function ObtenerColorUsuario(evt) {
+    for (let i = 0; i < usuarios.length; i++) {
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROLID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL2ID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL3ID ||
+        usuarios[i].id == evt.TERCERECURSOCTROL4ID
+      ) {
+        return 'bg-' + colores[usuarios[i].num];
+      }
+    }
+    return '';
+  }
+
+  function ObtenerHora(evt) {
+    for (let i = 0; i < usuarios.length; i++) {
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROLID &&
+        evt.HORACALINI !== '' &&
+        evt.HORACALFIN !== '00:00'
+      ) {
+        return evt.HORACALINI + '-' + evt.HORACALFIN;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL2ID &&
+        evt.HORACALINI2 !== '' &&
+        evt.HORACALFIN2 !== '00:00'
+      ) {
+        return evt.HORACALINI2 + '-' + evt.HORACALFIN2;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL3ID &&
+        evt.HORACALINI3 !== '' &&
+        evt.HORACALFIN3 !== '00:00'
+      ) {
+        return evt.HORACALINI3 + '-' + evt.HORACALFIN3;
+      }
+      if (
+        usuarios[i].id == evt.TERCERECURSOCTROL4ID &&
+        evt.HORACALINI4 !== '' &&
+        evt.HORACALFIN4 !== '00:00'
+      ) {
+        return evt.HORACALINI4 + '-' + evt.HORACALFIN4;
+      }
+    }
+    return '';
+  }
   return (
     <GlobalContext.Provider
       value={{
@@ -102,6 +165,9 @@ const ContextWrapper = (props) => {
         setOpcionVista,
         actividadSeleccionada,
         setActividadSeleccionada,
+        ObtenerColorUsuario,
+        ObtenerClaseColor,
+        ObtenerHora
       }}
     >
       {props.children}

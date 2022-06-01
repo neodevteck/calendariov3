@@ -23,6 +23,9 @@ const GlobalContext = React.createContext({
   setActividadesMes: (val) => {},
   setOpcionVista: () => {},
   opcionVista: 0,
+  ObtenerColorUsuario: (val) => {},
+  ObtenerClaseColor: (val) => {},
+  ObtenerHora: (val) => {},
 });
 
 export default GlobalContext;
