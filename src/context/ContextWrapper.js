@@ -47,6 +47,13 @@ const ContextWrapper = (props) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
             setIdUsuarioLogueado(res.data.d.id);
+          //   if (localStorage.getItem('LU'+res.data.d.id) !== null) {
+          //     ;
+          //     setUsuarios(localStorage.getItem('LU'+res.data.d.id));
+          //  }
+          //   else{
+          //     localStorage.setItem('LU'+res.data.d.id, JSON.stringify(obj))
+          //  }
             setUsuarios([
               {
                 id: res.data.d.id,
