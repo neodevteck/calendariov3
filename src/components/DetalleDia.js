@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 const DetalleDia = ({ data }) => {
   return (
-    <div className='flex-1 grid grid-cols-7 grid-rows-5 h-100vw'>
+    <div className=''>
       {data.d.map((x, i) => {
         return (
           <DiaUsuario
@@ -12,6 +12,7 @@ const DetalleDia = ({ data }) => {
             dia={dayjs(x.Fecha, 'DD-MM-YYYY', 'es')}
             actividades={x.Actividades ? JSON.parse(x.Actividades) : []}
             indice={i}
+            idUsuario = {x.IdUsuario}
           />
         );
       })}

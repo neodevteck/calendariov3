@@ -1,16 +1,18 @@
 import React,{useContext} from 'react'
 import GlobalContext from '../context/GlobalContext';
 
-const DiaUsuario = ({ dia, actividades, indice }) => {
+const DiaUsuario = ({ dia, actividades, indice,idUsuario }) => {
     const {           
         setActividadSeleccionada,
         ObtenerClaseColor,
         ObtenerColorUsuario,
         ObtenerHora,
-        setMostrarModalDia, setMostrarModalActividad
+        setMostrarModalDia, setMostrarModalActividad,ObtenerNombreUsuario
       } = useContext(GlobalContext);
     return (
+     
         <div>
+          <div> {ObtenerNombreUsuario(idUsuario)} </div>
              {actividades.map((act, idx) => (
           <div
             className={`${ObtenerClaseColor(

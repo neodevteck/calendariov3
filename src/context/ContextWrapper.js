@@ -106,6 +106,17 @@ const ContextWrapper = (props) => {
     return '';
   }
 
+  function ObtenerNombreUsuario(id) {
+    for (let i = 0; i < usuarios.length; i++) {
+      if (
+        usuarios[i].id == id
+      ) {
+        return usuarios[i].nombre;
+      }
+    }
+    return '';
+  }
+
   function ObtenerHora(evt) {
     for (let i = 0; i < usuarios.length; i++) {
       if (
@@ -167,7 +178,8 @@ const ContextWrapper = (props) => {
         setActividadSeleccionada,
         ObtenerColorUsuario,
         ObtenerClaseColor,
-        ObtenerHora
+        ObtenerHora,
+        ObtenerNombreUsuario
       }}
     >
       {props.children}
