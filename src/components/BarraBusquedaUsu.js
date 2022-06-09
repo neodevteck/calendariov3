@@ -16,18 +16,20 @@ export default function BarraBusquedaUsu() {
     useContext(GlobalContext);
   function AgregarUsuario(obj) {
     //console.log('AGREGAR USUARIO');
+    let objUsu = {
+      id: obj.TERCEID_USU,
+      nombre: obj.NOMCOMPL_USU,
+      checked: true,
+      num: usuarios.length,
+    }
     if (usuarios.length < 10) {
       setUsuarios((prevState) => {
         return [
           ...prevState.filter((item) => item.id !== obj.TERCEID_USU),
-          {
-            id: obj.TERCEID_USU,
-            nombre: obj.NOMCOMPL_USU,
-            checked: true,
-            num: usuarios.length,
-          },
+          objUsu,
         ];
       });
+      
     }
     setListaCoincidencias([]);
     setTextoBusqueda('');

@@ -47,21 +47,31 @@ const ContextWrapper = (props) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
             setIdUsuarioLogueado(res.data.d.id);
-          //   if (localStorage.getItem('LU'+res.data.d.id) !== null) {
-          //     ;
-          //     setUsuarios(localStorage.getItem('LU'+res.data.d.id));
-          //  }
-          //   else{
-          //     localStorage.setItem('LU'+res.data.d.id, JSON.stringify(obj))
-          //  }
-            setUsuarios([
+            let obj = [
               {
                 id: res.data.d.id,
                 nombre: res.data.d.nombre,
                 checked: true,
                 num: 0,
               },
-            ]);
+            ]
+            if (localStorage.getItem('LU'+res.data.d.id) !== null) {
+              //console.log(localStorage.getItem('LU'+res.data.d.id))
+              setUsuarios(JSON.parse(localStorage.getItem('LU'+res.data.d.id)));
+           }
+            else{
+              localStorage.setItem('LU'+res.data.d.id, JSON.stringify(obj))
+              setUsuarios(obj)
+           }
+
+            // setUsuarios([
+            //   {
+            //     id: res.data.d.id,
+            //     nombre: res.data.d.nombre,
+            //     checked: true,
+            //     num: 0,
+            //   },
+            // ]);
           }
         }
       })
