@@ -11,6 +11,7 @@ import Spinner from './components/Spinner';
 import useActividades from './react-query/useActividades';
 import ModalActividad from './components/ModalActividad';
 import Error from './components/Error';
+import * as d3 from "d3";
 
 const App = () => {
   //console.log('APP');

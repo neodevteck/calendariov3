@@ -1,6 +1,7 @@
 import React, { useContext } from 'react'
 import GlobalContext from '../context/GlobalContext';
 import { times } from '../util/util';
+import * as d3 from "d3";
 
 const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   const {
