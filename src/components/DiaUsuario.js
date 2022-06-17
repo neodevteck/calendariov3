@@ -1,7 +1,8 @@
-import React, { useContext } from 'react'
+import React, { useContext,useRef,useEffect } from 'react'
 import GlobalContext from '../context/GlobalContext';
 import { times } from '../util/util';
 import * as d3 from "d3";
+
 
 const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   const {
@@ -11,6 +12,16 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     ObtenerHora,
     setMostrarModalDia, setMostrarModalActividad, ObtenerNombreUsuario
   } = useContext(GlobalContext);
+
+  const ref = useRef()
+  useEffect(() => {
+    const svgElement = d3.select(ref.current)
+    svgElement.append("circle")
+      .attr("cx", 150)
+      .attr("cy", 70)
+      .attr("r",  50)
+  }, [])
+
   return (
     // <div>        
     //   <div> {ObtenerNombreUsuario(idUsuario)} </div>
@@ -38,7 +49,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     // ))}
     // </div>
     <div>
-      <div> {ObtenerNombreUsuario(idUsuario)} </div>
+      {/* <div> {ObtenerNombreUsuario(idUsuario)} </div>
       {times.map(time => (
         <div>
           {actividades.map((act, idx) => (
@@ -71,7 +82,11 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
               : ''
           ))}
         </div>
-      ))}
+      ))} */}
+    <svg
+      ref={ref}
+    />
+      
     </div>
   )
 }
