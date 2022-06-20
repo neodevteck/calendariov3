@@ -35,14 +35,14 @@ const ContextWrapper = (props) => {
   useEffect(() => {
     console.log('USUARIO LOGIN');
     axios
-      //.get('http://localhost:3003/usuario')
-      .post(
-        'frmCalendarioV2.aspx/ObtenerUsuario',
-        {},
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
+      .get('http://localhost:3003/usuario')
+      // .post(
+      //   'frmCalendarioV2.aspx/ObtenerUsuario',
+      //   {},
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //   }
+      // )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
@@ -54,15 +54,16 @@ const ContextWrapper = (props) => {
                 checked: true,
                 num: 0,
               },
-            ]
-            if (localStorage.getItem('LU'+res.data.d.id) !== null) {
+            ];
+            if (localStorage.getItem('LU' + res.data.d.id) !== null) {
               //console.log(localStorage.getItem('LU'+res.data.d.id))
-              setUsuarios(JSON.parse(localStorage.getItem('LU'+res.data.d.id)));
-           }
-            else{
-              localStorage.setItem('LU'+res.data.d.id, JSON.stringify(obj))
-              setUsuarios(obj)
-           }
+              setUsuarios(
+                JSON.parse(localStorage.getItem('LU' + res.data.d.id))
+              );
+            } else {
+              localStorage.setItem('LU' + res.data.d.id, JSON.stringify(obj));
+              setUsuarios(obj);
+            }
 
             // setUsuarios([
             //   {
@@ -125,9 +126,7 @@ const ContextWrapper = (props) => {
 
   function ObtenerNombreUsuario(id) {
     for (let i = 0; i < usuarios.length; i++) {
-      if (
-        usuarios[i].id == id
-      ) {
+      if (usuarios[i].id == id) {
         return usuarios[i].nombre;
       }
     }
@@ -196,7 +195,7 @@ const ContextWrapper = (props) => {
         ObtenerColorUsuario,
         ObtenerClaseColor,
         ObtenerHora,
-        ObtenerNombreUsuario
+        ObtenerNombreUsuario,
       }}
     >
       {props.children}

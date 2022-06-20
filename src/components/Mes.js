@@ -8,7 +8,7 @@ const Mes = ({ mes, data }) => {
       {data.d.map((x, i) => {
         return (
           <Dia
-            key={x.Fecha}
+            key={i}
             dia={dayjs(x.Fecha, 'DD-MM-YYYY', 'es')}
             actividades={x.Actividades ? JSON.parse(x.Actividades) : []}
             indice={i}
