@@ -56,28 +56,13 @@ export function debounce(callback, wait) {
   };
 }
 
-export const times = [
-  '01:00',
-  '02:00',
-  '03:00',
-  '04:00',
-  '05:00',
-  '06:00',
-  '07:00',
-  '08:00',
-  '09:00',
-  '10:00',
-  '11:00',
-  '12:00',
-  '13:00',
-  '14:00',
-  '15:00',
-  '16:00',
-  '17:00',
-  '18:00',
-  '19:00',
-  '20:00',
-  '21:00',
-  '22:00',
-  '23:00',
-];
+
+export function strToDate(dtStr) {
+  if (!dtStr) return null
+  let dateParts = dtStr.split("/");
+  let timeParts = dateParts[2].split(" ")[1].split(":");
+  dateParts[2] = dateParts[2].split(" ")[0];
+  // month is 0-based, that's why we need dataParts[1] - 1
+  let dateObject = new Date(+dateParts[2], dateParts[1] - 1, +dateParts[0], timeParts[0], timeParts[1], timeParts[2]);
+  return dateObject
+}

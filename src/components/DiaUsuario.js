@@ -1,6 +1,5 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
-import { times } from '../util/util';
 import * as d3 from 'd3';
 import dayjs from 'dayjs';
 
@@ -17,17 +16,20 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     ObtenerHoraFinDetalleDia,
   } = useContext(GlobalContext);
 
-  // console.log(
-  //   new Date(
-  //     dayjs(dia).format('DD/MM/YYYY') +
-  //       ' ' +
-  //       ObtenerHoraFinDetalleDia(actividades[0])
-  //   )
-  // );
+  const currentDate = new Date();
+const timestamp = currentDate.getTime();
 
-  console.log(dia);
-  // console.log(dayjs(dia).format('DD/MM/YYYY'));
-  // let a = new Date(dayjs(dia).format('DD/MM/YYYY') + ' 12:37');
+  console.log(
+    new Date(
+      dayjs(dia).format('MM/DD/YYYY').toString() +
+        ' ' +
+        ObtenerHoraFinDetalleDia(actividades[0])
+    )
+  );
+
+  console.log(actividades);
+  // console.log(dayjs(dia).format('MM/DD/YYYY'));
+  // let a = new Date(dayjs(dia).format('MM/DD/YYYY') + ' 12:37');
   // //let a = dayjs('12:37').format('HH');
   //console.log(new Date('05/01/2022 08:00'));
   // const calendarEvents = [
@@ -56,17 +58,21 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   //   ...calendarEvents.map((d) => new Date(d.timeTo)),
   // ];
 
+  // for(let i = 0 ; i < actividades.length; i++){
+  //   console.log(dayjs(dia).format('MM/DD/YYYY') + ' ' + ObtenerHoraIniDetalleDia(actividades[i]))
+  // }
+
   const dates = [
     ...actividades.map(
       (d) =>
         new Date(
-          dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraIniDetalleDia(d)
+          dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + ObtenerHoraIniDetalleDia(d)
         )
     ),
     ...actividades.map(
       (d) =>
         new Date(
-          dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraFinDetalleDia(d)
+          dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + ObtenerHoraFinDetalleDia(d)
         )
     ),
   ];
@@ -145,7 +151,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
         (d) =>
           yScale(
             new Date(
-              dayjs(dia).format('DD/MM/YYYY') +
+              dayjs(dia).format('MM/DD/YYYY').toString() +
                 ' ' +
                 ObtenerHoraIniDetalleDia(d)
             )
@@ -154,12 +160,12 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
       .attr('height', (d) => {
         const startPoint = yScale(
           new Date(
-            dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraIniDetalleDia(d)
+            dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + ObtenerHoraIniDetalleDia(d)
           )
         );
         const endPoint = yScale(
           new Date(
-            dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraFinDetalleDia(d)
+            dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + ObtenerHoraFinDetalleDia(d)
           )
         );
         return Math.abs(
@@ -169,15 +175,17 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
       .attr('width', barStyle.width)
       .attr('rx', barStyle.radius);
 
-    const currentTimeDate = new Date(
-      new Date(new Date().setDate(20)).setMonth(6)
-    ).setFullYear(2022);
+    // const currentTimeDate = new Date(
+      
+
+    //   new Date(new Date().setDate(21)).setMonth(6)
+    // ).setFullYear(Date.getFullYear());
 
     barGroups
       .append('rect')
       .attr('fill', nowColor)
       .attr('x', margin.left)
-      .attr('y', yScale(currentTimeDate) + barStyle.startPadding)
+      .attr('y', yScale(timestamp) + barStyle.startPadding)
       .attr('height', 2)
       .attr('width', barStyle.width);
 
@@ -194,7 +202,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
         (d) =>
           yScale(
             new Date(
-              dayjs(dia).format('DD/MM/YYYY') +
+              dayjs(dia).format('MM/DD/YYYY').toString() +
                 ' ' +
                 ObtenerHoraIniDetalleDia(d)
             )

@@ -35,14 +35,14 @@ const ContextWrapper = (props) => {
   useEffect(() => {
     //console.log('USUARIO LOGIN');
     axios
-      .get('http://localhost:3003/usuario')
-      // .post(
-      //   'frmCalendarioV2.aspx/ObtenerUsuario',
-      //   {},
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //   }
-      // )
+      //.get('http://localhost:3003/usuario')
+      .post(
+        'frmCalendarioV2.aspx/ObtenerUsuario',
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
