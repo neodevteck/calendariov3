@@ -168,32 +168,32 @@ const ContextWrapper = (props) => {
   }
 
   function ObtenerHoraIniDetalleDia(evt) {
-    if (evt.HORACALINI !== '' && evt.HORACALINI !== '00:00') {
+    if (evt.HORACALINI !== 'undefined' && evt.HORACALINI !== '' && evt.HORACALINI !== '00:00') {
       return evt.HORACALINI;
     }
-    if (evt.HORACALINI2 !== '' && evt.HORACALINI2 !== '00:00') {
+    if (evt.HORACALINI2 !== 'undefined' && evt.HORACALINI2 !== '' && evt.HORACALINI2 !== '00:00') {
       return evt.HORACALINI2;
     }
-    if (evt.HORACALINI3 !== '' && evt.HORACALINI3 !== '00:00') {
+    if (evt.HORACALINI3 !== 'undefined' && evt.HORACALINI3 !== '' && evt.HORACALINI3 !== '00:00') {
       return evt.HORACALINI3;
     }
-    if (evt.HORACALINI4 !== '' && evt.HORACALINI4 !== '00:00') {
+    if (evt.HORACALINI4 !== 'undefined' && evt.HORACALINI4 !== '' && evt.HORACALINI4 !== '00:00') {
       return evt.HORACALINI4;
     }
     return '';
   }
 
   function ObtenerHoraFinDetalleDia(evt) {
-    if (evt.HORACALFIN !== '' && evt.HORACALFIN !== '00:00') {
+    if (evt.HORACALFIN !== 'undefined' && evt.HORACALFIN !== '' && evt.HORACALFIN !== '00:00') {
       return evt.HORACALFIN;
     }
-    if (evt.HORACALFIN2 !== '' && evt.HORACALFIN2 !== '00:00') {
+    if (evt.HORACALFIN2 !== 'undefined' && evt.HORACALFIN2 !== '' && evt.HORACALFIN2 !== '00:00') {
       return evt.HORACALFIN2;
     }
-    if (evt.HORACALFIN3 !== '' && evt.HORACALFIN3 !== '00:00') {
+    if (evt.HORACALFIN3 !== 'undefined' && evt.HORACALFIN3 !== '' && evt.HORACALFIN3 !== '00:00') {
       return evt.HORACALFIN3;
     }
-    if (evt.HORACALFIN4 !== '' && evt.HORACALFIN4 !== '00:00') {
+    if (evt.HORACALFIN4 !== 'undefined' && evt.HORACALFIN4 !== '' && evt.HORACALFIN4 !== '00:00') {
       return evt.HORACALFIN4;
     }
     return '';

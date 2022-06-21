@@ -77,6 +77,20 @@ const timestamp = currentDate.getTime();
     ),
   ];
 
+  let horaIni =  new Date(
+    dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + '01:00'
+  )
+
+  let horaFin =  new Date(
+    dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + '23:59'
+  )
+
+  console.log(horaIni)
+  console.log(horaFin)
+dates.push(horaIni)
+dates.push(horaFin)
+
+
   const margin = { top: 30, right: 30, bottom: 30, left: 50 }; // Gives space for axes and other margins
   const height = 1500;
   const width = 900;
