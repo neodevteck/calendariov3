@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import { times } from '../util/util';
 import * as d3 from 'd3';
+import dayjs from 'dayjs';
 
 const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   const {
@@ -12,34 +13,62 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     setMostrarModalDia,
     setMostrarModalActividad,
     ObtenerNombreUsuario,
+    ObtenerHoraIniDetalleDia,
+    ObtenerHoraFinDetalleDia,
   } = useContext(GlobalContext);
 
-  console.log(actividades);
+  // console.log(
+  //   new Date(
+  //     dayjs(dia).format('DD/MM/YYYY') +
+  //       ' ' +
+  //       ObtenerHoraFinDetalleDia(actividades[0])
+  //   )
+  // );
 
-  const calendarEvents = [
-    {
-      timeFrom: '2020-11-11T05:00:00.000Z',
-      timeTo: '2020-11-11T12:00:00.000Z',
-      title: 'Sleep',
-      background: '#616161',
-    },
-    {
-      timeFrom: '2020-11-11T16:00:00.000Z',
-      timeTo: '2020-11-11T17:30:00.000Z',
-      title: 'Business meeting',
-      background: '#33B779',
-    },
-    {
-      timeFrom: '2020-11-12T00:00:00.000Z',
-      timeTo: '2020-11-12T05:00:00.000Z',
-      title: 'Wind down time',
-      background: '#616161',
-    },
-  ];
+  console.log(dia);
+  // console.log(dayjs(dia).format('DD/MM/YYYY'));
+  // let a = new Date(dayjs(dia).format('DD/MM/YYYY') + ' 12:37');
+  // //let a = dayjs('12:37').format('HH');
+  //console.log(new Date('05/01/2022 08:00'));
+  // const calendarEvents = [
+  //   {
+  //     timeFrom: '2020-11-11T05:00:00.000Z',
+  //     timeTo: '2020-11-11T12:00:00.000Z',
+  //     title: 'Sleep',
+  //     background: '#616161',
+  //   },
+  //   {
+  //     timeFrom: '2020-11-11T16:00:00.000Z',
+  //     timeTo: '2020-11-11T17:30:00.000Z',
+  //     title: 'Business meeting',
+  //     background: '#33B779',
+  //   },
+  //   {
+  //     timeFrom: '2020-11-12T00:00:00.000Z',
+  //     timeTo: '2020-11-12T05:00:00.000Z',
+  //     title: 'Wind down time',
+  //     background: '#616161',
+  //   },
+  // ];
   // Make an array of dates to use for our yScale later on
+  // const dates = [
+  //   ...calendarEvents.map((d) => new Date(d.timeFrom)),
+  //   ...calendarEvents.map((d) => new Date(d.timeTo)),
+  // ];
+
   const dates = [
-    ...calendarEvents.map((d) => new Date(d.timeFrom)),
-    ...calendarEvents.map((d) => new Date(d.timeTo)),
+    ...actividades.map(
+      (d) =>
+        new Date(
+          dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraIniDetalleDia(d)
+        )
+    ),
+    ...actividades.map(
+      (d) =>
+        new Date(
+          dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraFinDetalleDia(d)
+        )
+    ),
   ];
 
   const margin = { top: 30, right: 30, bottom: 30, left: 50 }; // Gives space for axes and other margins
@@ -55,7 +84,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     endPadding: 3,
     radius: 3,
   };
-
+  console.log(dates);
   const ref = useRef();
   useEffect(() => {
     // const svgElement = d3.select(ref.current)
@@ -68,10 +97,8 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
       .select(ref.current)
       .attr('width', width)
       .attr('height', height);
-    // All further code additions will go just below this line
 
-    // Actually add the element to the page
-    let ele = document.querySelector('#testChart');
+    let ele = document.querySelector('.testChart');
     ele.append(svg.node());
     const yScale = d3
       .scaleTime()
@@ -79,13 +106,11 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
       .range([margin.top, height - margin.bottom]);
 
     const yAxis = d3.axisLeft().ticks(24).scale(yScale);
-    // We'll be using this svg variable throughout to append other elements to it
     svg
       .append('g')
       .attr('transform', `translate(${margin.left},0)`)
       .attr('opacity', 0.5)
       .call(yAxis);
-
     svg
       .selectAll('g.tick')
       .filter((d, i, ticks) => i === 0 || i === ticks.length - 1)
@@ -107,28 +132,46 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
 
     const barGroups = svg
       .selectAll('g.barGroup')
-      .data(calendarEvents)
+      .data(actividades)
       .join('g')
       .attr('class', 'barGroup');
 
     barGroups
       .append('rect')
-      .attr('fill', (d) => d.background || barStyle.background)
+      .attr('fill', '#616161')
       .attr('x', margin.left)
-      .attr('y', (d) => yScale(new Date(d.timeFrom)) + barStyle.startPadding)
+      .attr(
+        'y',
+        (d) =>
+          yScale(
+            new Date(
+              dayjs(dia).format('DD/MM/YYYY') +
+                ' ' +
+                ObtenerHoraIniDetalleDia(d)
+            )
+          ) + barStyle.startPadding
+      )
       .attr('height', (d) => {
-        const startPoint = yScale(new Date(d.timeFrom));
-        const endPoint = yScale(new Date(d.timeTo));
-        return (
-          endPoint - startPoint - barStyle.endPadding - barStyle.startPadding
+        const startPoint = yScale(
+          new Date(
+            dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraIniDetalleDia(d)
+          )
+        );
+        const endPoint = yScale(
+          new Date(
+            dayjs(dia).format('DD/MM/YYYY') + ' ' + ObtenerHoraFinDetalleDia(d)
+          )
+        );
+        return Math.abs(
+          endPoint - startPoint - (barStyle.endPadding - barStyle.startPadding)
         );
       })
       .attr('width', barStyle.width)
       .attr('rx', barStyle.radius);
 
     const currentTimeDate = new Date(
-      new Date(new Date().setDate(11)).setMonth(10)
-    ).setFullYear(2020);
+      new Date(new Date().setDate(20)).setMonth(6)
+    ).setFullYear(2022);
 
     barGroups
       .append('rect')
@@ -146,9 +189,19 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
       .attr('text-anchor', 'start')
       .attr('fill', barStyle.textColor)
       .attr('x', margin.left + 10)
-      .attr('y', (d) => yScale(new Date(d.timeFrom)) + 20)
-      .text((d) => d.title);
-  }, []);
+      .attr(
+        'y',
+        (d) =>
+          yScale(
+            new Date(
+              dayjs(dia).format('DD/MM/YYYY') +
+                ' ' +
+                ObtenerHoraIniDetalleDia(d)
+            )
+          ) + 20
+      )
+      .text((d) => d.ASUNTO);
+  }, [actividades]);
 
   return (
     // <div>
@@ -176,7 +229,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     //   </div>
     // ))}
     // </div>
-    <div className='grid grid-flow-col auto-cols-max' id='testChart'>
+    <div className='grid grid-flow-col auto-cols-max testChart' id=''>
       {/* <div> {ObtenerNombreUsuario(idUsuario)} </div>
       {times.map(time => (
         <div>

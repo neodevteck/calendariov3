@@ -12,7 +12,6 @@ import useActividades from './react-query/useActividades';
 import ModalActividad from './components/ModalActividad';
 import Error from './components/Error';
 
-
 const App = () => {
   //console.log('APP');
   const [mesActual, setMesActual] = useState(getMonth());
@@ -23,7 +22,7 @@ const App = () => {
     usuarios,
     opcionVista,
     diaSeleccionado,
-    idUsuarioLogueado
+    idUsuarioLogueado,
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -31,12 +30,18 @@ const App = () => {
   }, [indiceMes]);
 
   //console.log(diaSeleccionado)
-  localStorage.setItem('LU'+idUsuarioLogueado, JSON.stringify(usuarios))
+  localStorage.setItem('LU' + idUsuarioLogueado, JSON.stringify(usuarios));
   let arrIds = usuarios
     ? usuarios.filter((lbl) => lbl.checked).map((lbl) => lbl.id)
     : [0];
-  let fechaIni =  opcionVista =='1' ? dayjs(getMonth(indiceMes)[0][0]).format('DD-MM-YY').toString() : diaSeleccionado.toString();
-  let fechaFin =  opcionVista =='1' ? dayjs(getMonth(indiceMes)[4][6]).format('DD-MM-YY').toString() : diaSeleccionado.toString();
+  let fechaIni =
+    opcionVista == '1'
+      ? dayjs(getMonth(indiceMes)[0][0]).format('DD-MM-YY').toString()
+      : diaSeleccionado.toString();
+  let fechaFin =
+    opcionVista == '1'
+      ? dayjs(getMonth(indiceMes)[4][6]).format('DD-MM-YY').toString()
+      : diaSeleccionado.toString();
 
   const { data, status } = useActividades(
     fechaIni,
@@ -50,7 +55,7 @@ const App = () => {
   } else if (status === 'error') {
     return <Error />;
   }
-  console.log(data);
+  //console.log(data);
 
   return (
     <React.Fragment>
