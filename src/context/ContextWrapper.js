@@ -110,6 +110,21 @@ const ContextWrapper = (props) => {
     return claseColor;
   }
 
+  function ObtenerHexColor(evt) {
+    let claseColor = '#135995';
+    if (evt.ESTADO === 3) {
+      claseColor = '#008000';
+    } else if (
+      evt.USUARIOSID != idUsuarioLogueado &&
+      evt.ESTADO_FLUJOTRABAJO === 1
+    ) {
+      claseColor = '#6397c3';
+    } else if (evt.USUARIOSID === idUsuarioLogueado && evt.ESTADO === 1) {
+      claseColor = '#135995';
+    }
+    return claseColor;
+  }
+
   function ObtenerColorUsuario(evt) {
     for (let i = 0; i < usuarios.length; i++) {
       if (
@@ -230,6 +245,7 @@ const ContextWrapper = (props) => {
         ObtenerNombreUsuario,
         ObtenerHoraIniDetalleDia,
         ObtenerHoraFinDetalleDia,
+        ObtenerHexColor
       }}
     >
       {props.children}

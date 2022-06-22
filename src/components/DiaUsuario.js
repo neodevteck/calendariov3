@@ -14,6 +14,8 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     ObtenerNombreUsuario,
     ObtenerHoraIniDetalleDia,
     ObtenerHoraFinDetalleDia,
+    ObtenerHexColor
+    
   } = useContext(GlobalContext);
 
   const currentDate = new Date();
@@ -27,7 +29,7 @@ const timestamp = currentDate.getTime();
   //   )
   // );
 
-  console.log(actividades);
+  //console.log(actividades);
   // console.log(dayjs(dia).format('MM/DD/YYYY'));
   // let a = new Date(dayjs(dia).format('MM/DD/YYYY') + ' 12:37');
   // //let a = dayjs('12:37').format('HH');
@@ -95,16 +97,16 @@ dates.push(horaFin)
   const height = 1500;
   const width = 500;
   const barWidth = 500;
-  const nowColor = '#EA4335';
+  const nowColor = '#000';
   const barStyle = {
-    background: '#616161',
+    background: '#000',
     textColor: 'white',
     width: barWidth,
     startPadding: 2,
     endPadding: 3,
     radius: 3,
   };
-  console.log(dates);
+  //console.log(dates);
   const ref = useRef();
   useEffect(() => {
     // const svgElement = d3.select(ref.current)
@@ -120,6 +122,24 @@ dates.push(horaFin)
 
     let ele = document.querySelector('.testChart');
     ele.append(svg.node());
+
+    // svg
+    // .append('g')    
+    // .attr('width', '200')
+    // .attr('height', '200');
+     
+    // svg
+    // .attr('font-family', 'Roboto')
+    // .attr('font-size', 15)
+    // .attr('font-weight', 900)
+    // .attr('text-anchor', 'start')
+    // .attr('fill', '#000')
+    // .attr('width', '200')
+    // .attr('height', '200')
+    //   .text((ObtenerNombreUsuario(idUsuario)));
+
+
+
     const yScale = d3
       .scaleTime()
       .domain([d3.min(dates), d3.max(dates)])
@@ -161,11 +181,12 @@ dates.push(horaFin)
       .selectAll('g.barGroup')
       .data(actividades)
       .join('g')
-      .attr('class', 'barGroup');
+      .attr('class', 'barGroup')
+ 
 
     barGroups
       .append('rect')
-      .attr('fill', '#616161')
+      .attr('fill', (d) =>  ObtenerHexColor(d))
       .attr('x', margin.left)
       .attr(
         'y',

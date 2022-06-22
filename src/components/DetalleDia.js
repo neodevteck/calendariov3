@@ -7,7 +7,7 @@ const DetalleDia = ({ data }) => {
   return (
     <div className=''>
       {data.d.map((x, i) => {
-        console.log(x.Fecha)
+        console.log(x.IdUsuario)
         return (
           <DiaUsuario
             key={i}
