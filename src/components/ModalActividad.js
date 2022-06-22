@@ -2,9 +2,10 @@ import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 const ModalActividad = () => {
   const { setMostrarModalActividad,actividadSeleccionada } = useContext(GlobalContext);
+  console.log('Modal dia: '+ actividadSeleccionada);
   return (
     <React.Fragment>
-      <div className='h-screen w-full fixed left-0 top-0 flex justify-center items-center'>
+      <div className='h-screen w-full fixed left-0 top-0 flex justify-center items-center overflow-scroll'>
         <form className='bg-white rounded-lg shadow-2xl w-2/4'>
           <header className='bg-gray-100 px-8 py-2 flex flex-col items-center'>
             

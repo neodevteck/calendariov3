@@ -87,8 +87,8 @@ const timestamp = currentDate.getTime();
     dayjs(dia).format('MM/DD/YYYY').toString() + ' ' + '23:59'
   )
 
-  console.log(horaIni)
-  console.log(horaFin)
+//   console.log(horaIni)
+//   console.log(horaFin)
 dates.push(horaIni)
 dates.push(horaFin)
 
@@ -121,6 +121,13 @@ dates.push(horaFin)
       .attr('height', height);
 
     let ele = document.querySelector('.testChart');
+
+    // var tag = document.createElement("p");
+    // var text = document.createTextNode("Tutorix is the best e-learning platform");
+    // tag.appendChild(text);
+
+    // ele.appendChild(tag);
+
     ele.append(svg.node());
 
     // svg
@@ -215,7 +222,13 @@ dates.push(horaFin)
         );
       })
       .attr('width', barStyle.width)
-      .attr('rx', barStyle.radius);
+      .attr('rx', barStyle.radius)
+      .on("click", (d,i) => {
+        // console.log(d);
+        // console.log(i);
+        //console.log(d3.event);
+        setActividadSeleccionada(i);setMostrarModalActividad(true)
+    })
 
     // const currentTimeDate = new Date(
       
@@ -229,7 +242,9 @@ dates.push(horaFin)
       .attr('x', margin.left)
       .attr('y', yScale(timestamp) + barStyle.startPadding)
       .attr('height', 2)
-      .attr('width', barStyle.width);
+      .attr('width', barStyle.width)
+      
+     
 
     barGroups
       .append('text')
@@ -251,6 +266,14 @@ dates.push(horaFin)
           ) + 20
       )
       .text((d) => d.ASUNTO);
+           
+              svg.append('text')
+              .attr('class', 'title')
+              .attr('x',250)
+              .attr('y', 20)
+              .attr('text-anchor', 'middle')
+              .text(ObtenerNombreUsuario(idUsuario));
+
   }, [actividades]);
 
   return (
@@ -280,6 +303,7 @@ dates.push(horaFin)
     // ))}
     // </div>
     <div className='grid grid-flow-col auto-cols-max testChart' id=''>
+      
       {/* <div> {ObtenerNombreUsuario(idUsuario)} </div>
       {times.map(time => (
         <div>
