@@ -19,13 +19,13 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   const currentDate = new Date();
 const timestamp = currentDate.getTime();
 
-  console.log(
-    new Date(
-      dayjs(dia).format('MM/DD/YYYY').toString() +
-        ' ' +
-        ObtenerHoraFinDetalleDia(actividades[0])
-    )
-  );
+  // console.log(
+  //   new Date(
+  //     dayjs(dia).format('MM/DD/YYYY').toString() +
+  //       ' ' +
+  //       ObtenerHoraFinDetalleDia(actividades[0])
+  //   )
+  // );
 
   console.log(actividades);
   // console.log(dayjs(dia).format('MM/DD/YYYY'));
@@ -91,10 +91,10 @@ dates.push(horaIni)
 dates.push(horaFin)
 
 
-  const margin = { top: 30, right: 30, bottom: 30, left: 50 }; // Gives space for axes and other margins
+  const margin = { top: 30, right: 0, bottom: 30, left: 50 }; // Gives space for axes and other margins
   const height = 1500;
-  const width = 900;
-  const barWidth = 600;
+  const width = 500;
+  const barWidth = 500;
   const nowColor = '#EA4335';
   const barStyle = {
     background: '#616161',
@@ -126,16 +126,23 @@ dates.push(horaFin)
       .range([margin.top, height - margin.bottom]);
 
     const yAxis = d3.axisLeft().ticks(24).scale(yScale);
-    svg
+
+    if (indice === 0){
+      svg
       .append('g')
       .attr('transform', `translate(${margin.left},0)`)
       .attr('opacity', 0.5)
       .call(yAxis);
-    svg
-      .selectAll('g.tick')
-      .filter((d, i, ticks) => i === 0 || i === ticks.length - 1)
-      .select('text')
-      .text('12 AM');
+      
+    }else{
+     margin.left = 0   
+    }
+    
+    // svg
+    //   .selectAll('g.tick')
+    //   .filter((d, i, ticks) => i === 0 || i === ticks.length - 1)
+    //   .select('text')
+    //   .text('12 AM');
 
     const gridLines = d3
       .axisRight()

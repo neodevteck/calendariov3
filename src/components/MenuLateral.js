@@ -5,7 +5,7 @@ import Usuarios from './Usuarios';
 
 const MenuLateral = () => {
   return (
-    <aside className='border p-5 w-64'>
+    <aside className='border p-5 ' style={{minWidth:'16rem'}}>
       <MiniCalendario />
       <BarraBusquedaUsu />
       <Usuarios />
