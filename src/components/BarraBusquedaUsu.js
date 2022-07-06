@@ -48,14 +48,14 @@ export default function BarraBusquedaUsu() {
         if (e.target.value !== '') {
           setCargando(true);
           axios
-            //.get('http://localhost:3003/usuarios')
-            .post(
-              'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
-              { prefixText: e.target.value },
-              {
-                headers: { 'Content-Type': 'application/json' },
-              }
-            )
+            .get('http://localhost:3003/usuarios')
+            // .post(
+            //   'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
+            //   { prefixText: e.target.value },
+            //   {
+            //     headers: { 'Content-Type': 'application/json' },
+            //   }
+            // )
             .then((res) => {
               //console.log(res);
               if (res.status === 200) {

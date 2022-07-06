@@ -29,7 +29,9 @@ const GlobalContext = React.createContext({
   ObtenerNombreUsuario: (val) => {},
   ObtenerHoraIniDetalleDia: (val) => {},
   ObtenerHoraFinDetalleDia: (val) => {},
-  ObtenerHexColor: (val) => {}
+  ObtenerHexColor: (val) => {},
+  secureStorage: () => {}
+
 });
 
 export default GlobalContext;

@@ -23,6 +23,7 @@ const App = () => {
     opcionVista,
     diaSeleccionado,
     idUsuarioLogueado,
+    secureStorage
   } = useContext(GlobalContext);
 
   useEffect(() => {
@@ -30,7 +31,7 @@ const App = () => {
   }, [indiceMes]);
 
   //console.log(diaSeleccionado)
-  localStorage.setItem('LU' + idUsuarioLogueado, JSON.stringify(usuarios));
+  secureStorage.setItem(idUsuarioLogueado,usuarios);
   let arrIds = usuarios
     ? usuarios.filter((lbl) => lbl.checked).map((lbl) => lbl.id)
     : [0];

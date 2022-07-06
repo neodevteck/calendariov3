@@ -2,8 +2,32 @@ import dayjs from 'dayjs';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import GlobalContext from './GlobalContext';
+import SecureStorage from 'secure-web-storage'
+
+//var CryptoJS = require("crypto-js");
+import CryptoJS from 'crypto-js';
+let SECRET_KEY = 'llaveUltraSecreta007+-*';
 
 const ContextWrapper = (props) => {
+
+  let secureStorage = new SecureStorage(localStorage, {
+    hash: function hash(key) {
+        key = CryptoJS.SHA256(key, SECRET_KEY);
+        return key.toString();
+    },
+    encrypt: function encrypt(data) {
+        data = CryptoJS.AES.encrypt(data, SECRET_KEY);
+        data = data.toString();
+        return data;
+    },
+    decrypt: function decrypt(data) {
+        data = CryptoJS.AES.decrypt(data, SECRET_KEY);
+        data = data.toString(CryptoJS.enc.Utf8);
+        return data;
+    }
+  });
+  
+
   const [indiceMes, setIndiceMes] = useState(dayjs().locale('es').month());
   const [mesMiniCalendario, setMesMiniCalendario] = useState(null);
   const [opcionVista, setOpcionVista] = useState(1);
@@ -35,14 +59,14 @@ const ContextWrapper = (props) => {
   useEffect(() => {
     //console.log('USUARIO LOGIN');
     axios
-      //.get('http://localhost:3003/usuario')
-      .post(
-        'frmCalendarioV2.aspx/ObtenerUsuario',
-        {},
-        {
-          headers: { 'Content-Type': 'application/json' },
-        }
-      )
+      .get('http://localhost:3003/usuario')
+      // .post(
+      //   'frmCalendarioV2.aspx/ObtenerUsuario',
+      //   {},
+      //   {
+      //     headers: { 'Content-Type': 'application/json' },
+      //   }
+      // )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
@@ -55,24 +79,23 @@ const ContextWrapper = (props) => {
                 num: 0,
               },
             ];
-            if (localStorage.getItem('LU' + res.data.d.id) !== null) {
-              //console.log(localStorage.getItem('LU'+res.data.d.id))
+
+            let storageKey = `${res.data.d.id}`
+            let a = secureStorage.getItem(storageKey)
+            console.log(a)
+            console.log(res.data.d.id)
+
+            if (secureStorage.getItem(storageKey) !== null) {
+              //if (localStorage.getItem('LU' + res.data.d.id) !== null) {
               setUsuarios(
-                JSON.parse(localStorage.getItem('LU' + res.data.d.id))
+                //JSON.parse(localStorage.getItem('LU' + res.data.d.id))
+                secureStorage.getItem(storageKey)
               );
             } else {
-              localStorage.setItem('LU' + res.data.d.id, JSON.stringify(obj));
+              //localStorage.setItem('LU' + res.data.d.id, JSON.stringify(obj));
+              secureStorage.setItem(obj);
               setUsuarios(obj);
             }
-
-            // setUsuarios([
-            //   {
-            //     id: res.data.d.id,
-            //     nombre: res.data.d.nombre,
-            //     checked: true,
-            //     num: 0,
-            //   },
-            // ]);
           }
         }
       })
@@ -245,7 +268,8 @@ const ContextWrapper = (props) => {
         ObtenerNombreUsuario,
         ObtenerHoraIniDetalleDia,
         ObtenerHoraFinDetalleDia,
-        ObtenerHexColor
+        ObtenerHexColor,
+        secureStorage
       }}
     >
       {props.children}
