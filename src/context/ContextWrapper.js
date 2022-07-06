@@ -26,6 +26,16 @@ const ContextWrapper = (props) => {
         return data;
     }
   });
+
+  const revolverArreglo = array => {
+    for (let i = array.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+    }
+    return array
+  }
   
 
   const [indiceMes, setIndiceMes] = useState(dayjs().locale('es').month());
@@ -36,41 +46,43 @@ const ContextWrapper = (props) => {
   const [mostrarModalDia, setMostrarModalDia] = useState(false);
   const [mostrarModalActividad, setMostrarModalActividad] = useState(false);
   const [idUsuarioLogueado, setIdUsuarioLogueado] = useState(0);
+  const [nitEmpresaUsuLogueado, setNitEmpresaUsuLogueado] = useState('');
+
   const [usuarios, setUsuarios] = useState(null);
   const [actividadesMes, setActividadesMes] = useState([]);
-  const colores = [
-    'pink-500',
-    'red-500',
-    'purple-600',
-    'deep-purple-600',
-    'indigo-600',
-    'blue-600',
-    'cyan-600',
-    'teal-600',
-    'green-600',
-    'lime-600',
+  let colores = 
+  [  
+    'orange-600',  
+    'cyan-600',    
+    'green-600',  
     'yellow-600',
-    'orange-600',
-    'brown-500',
+    'teal-600',
     'grey-500',
-    'blue-grey-600',
-  ];
+    'sky-500', 
+    'zinc-900', 
+    'purple-600',
+    'yellow-200',    
+  ]
+
+  // colores = revolverArreglo(colores)
+  colores.push('pink-500')
 
   useEffect(() => {
     //console.log('USUARIO LOGIN');
     axios
-      .get('http://localhost:3003/usuario')
-      // .post(
-      //   'frmCalendarioV2.aspx/ObtenerUsuario',
-      //   {},
-      //   {
-      //     headers: { 'Content-Type': 'application/json' },
-      //   }
-      // )
+      //.get('http://localhost:3003/usuario')
+      .post(
+        'frmCalendarioV2.aspx/ObtenerUsuario',
+        {},
+        {
+          headers: { 'Content-Type': 'application/json' },
+        }
+      )
       .then((res) => {
         if (res.status === 200) {
           if (res.data.d !== undefined) {
             setIdUsuarioLogueado(res.data.d.id);
+            setNitEmpresaUsuLogueado(res.data.d.nitEmpresa);
             let obj = [
               {
                 id: res.data.d.id,
@@ -79,20 +91,14 @@ const ContextWrapper = (props) => {
                 num: 0,
               },
             ];
+            let storageKey = `${res.data.d.id}`   
+            let storageKeyColores = `${res.data.d.id}Colores`         
 
-            let storageKey = `${res.data.d.id}`
-            let a = secureStorage.getItem(storageKey)
-            console.log(a)
-            console.log(res.data.d.id)
-
-            if (secureStorage.getItem(storageKey) !== null) {
-              //if (localStorage.getItem('LU' + res.data.d.id) !== null) {
-              setUsuarios(
-                //JSON.parse(localStorage.getItem('LU' + res.data.d.id))
+            if (secureStorage.getItem(storageKey) !== null) {              
+              setUsuarios(                
                 secureStorage.getItem(storageKey)
               );
-            } else {
-              //localStorage.setItem('LU' + res.data.d.id, JSON.stringify(obj));
+            } else {              
               secureStorage.setItem(obj);
               setUsuarios(obj);
             }
@@ -103,6 +109,8 @@ const ContextWrapper = (props) => {
         alert('Ha ocurrido un error');
         window.location = 'frmCalendario.aspx';
       });
+
+     
   }, []);
 
   useEffect(() => {
@@ -269,6 +277,7 @@ const ContextWrapper = (props) => {
         ObtenerHoraIniDetalleDia,
         ObtenerHoraFinDetalleDia,
         ObtenerHexColor,
+        nitEmpresaUsuLogueado,
         secureStorage
       }}
     >

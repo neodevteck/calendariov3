@@ -15,6 +15,8 @@ const GlobalContext = React.createContext({
   setMostrarModalActividad: (val) => {},
   idUsuarioLogueado: 0,
   setIdUsuarioLogueado: (val) => {},
+  nitEmpresaUsuLogueado: '',
+  setNitEmpresaUsuLogueado: (val) => {},
   usuarios: [],
   setUsuarios: (val) => {},
   updateUsuario: (val) => {},

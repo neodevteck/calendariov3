@@ -2,8 +2,23 @@ import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
 
 export default function Usuarios() {
-  const { usuarios, updateUsuario, DeleteUsuario, colores, idUsuarioLogueado } =
+  const { usuarios, updateUsuario, DeleteUsuario, colores, idUsuarioLogueado,nitEmpresaUsuLogueado } =
     useContext(GlobalContext);
+  const ObtenerColorUsuario = (num,id)=>{
+    if (id === 5 && nitEmpresaUsuLogueado === '900332071' ){
+      let fecha = new Date('08-01-2022');
+      let hoy = new Date();
+      if(hoy > fecha)
+      {
+          return colores[10]
+      }
+      else
+      {          
+          return colores[num]
+      }    
+    }
+    return colores[num]
+  }  
   return (
     <React.Fragment>
       <p className='text-gray-500 font-bold mt-10'>Usuarios</p>
@@ -20,7 +35,7 @@ export default function Usuarios() {
                 num: num,
               })
             }
-            className={`form-checkbox h-5 w-5 accent-${colores[num]}  rounded focus:ring-0 cursor-pointer`}
+            className={`form-checkbox h-5 w-5 accent-${ObtenerColorUsuario(num,id)}  rounded focus:ring-0 cursor-pointer`}
           />
           <span className={`ml-2 text-gray-700 capitalize`}>{nombre}</span>
           {id !== idUsuarioLogueado && (
