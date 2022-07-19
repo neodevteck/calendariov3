@@ -4,7 +4,7 @@ import GlobalContext from '../context/GlobalContext';
 export default function Usuarios() {
   const { usuarios, updateUsuario, DeleteUsuario, colores, idUsuarioLogueado,nitEmpresaUsuLogueado } =
     useContext(GlobalContext);
-  const ObtenerColorUsuario = (num,id)=>{
+    const ObtenerColorUsuario = (num,id)=>{
     if (id === 5 && nitEmpresaUsuLogueado === '900332071' ){
       let fecha = new Date('08-01-2022');
       let hoy = new Date();

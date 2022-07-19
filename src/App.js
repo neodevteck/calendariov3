@@ -23,15 +23,23 @@ const App = () => {
     opcionVista,
     diaSeleccionado,
     idUsuarioLogueado,
-    secureStorage
+    secureStorage,
+    colores
   } = useContext(GlobalContext);
 
   useEffect(() => {
     setMesActual(getMonth(indiceMes));
   }, [indiceMes]);
 
-  //console.log(diaSeleccionado)
-  secureStorage.setItem(idUsuarioLogueado,usuarios);
+  // console.log(usuarios)
+  secureStorage.setItem(idUsuarioLogueado+'Usuarios',usuarios);
+  // console.log('usuarioslocalestorage: ')
+  // console.log(secureStorage.getItem(idUsuarioLogueado+'Usuarios'))
+
+  // console.log('coloreslocalestorage: ')
+  // console.log(secureStorage.getItem(idUsuarioLogueado + 'Colores'))
+  secureStorage.setItem(idUsuarioLogueado + 'Colores',colores);
+
   let arrIds = usuarios
     ? usuarios.filter((lbl) => lbl.checked).map((lbl) => lbl.id)
     : [0];

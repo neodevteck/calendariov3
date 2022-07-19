@@ -62,13 +62,26 @@ const ContextWrapper = (props) => {
     'zinc-900', 
     'purple-600',
     'yellow-200',    
-  ]
-
-  // colores = revolverArreglo(colores)
+  ]  
+  colores = revolverArreglo(colores)
   colores.push('pink-500')
 
+  if (idUsuarioLogueado > 0){
+    let storageKeyColores = `${idUsuarioLogueado}Colores`         
+    if (secureStorage.getItem(storageKeyColores) !== null) {  
+      colores = secureStorage.getItem(storageKeyColores)
+      console.log('setcoloresexiste')
+   } 
+   else
+   {
+     secureStorage.setItem(storageKeyColores,colores);
+     console.log('setcolores')
+   }
+
+  }
+
   useEffect(() => {
-    //console.log('USUARIO LOGIN');
+    console.log('NO ENTIENDO');
     axios
       //.get('http://localhost:3003/usuario')
       .post(
@@ -91,17 +104,22 @@ const ContextWrapper = (props) => {
                 num: 0,
               },
             ];
-            let storageKey = `${res.data.d.id}`   
-            let storageKeyColores = `${res.data.d.id}Colores`         
-
+            let storageKey = `${res.data.d.id}Usuarios`   
+           
+            //console.log(secureStorage.getItem(storageKey))
             if (secureStorage.getItem(storageKey) !== null) {              
               setUsuarios(                
                 secureStorage.getItem(storageKey)
               );
+              console.log('setusuariosexiste')
             } else {              
-              secureStorage.setItem(obj);
+              secureStorage.setItem(storageKey,obj);
               setUsuarios(obj);
+              console.log('setusuarios')
+
             }
+
+            
           }
         }
       })
