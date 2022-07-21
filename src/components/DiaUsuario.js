@@ -11,7 +11,7 @@ const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
     ObtenerHora,
     setMostrarModalDia,
     setMostrarModalActividad,
-    ObtenerNombreUsuario,
+    ObtenerUsuario,
     ObtenerHoraIniDetalleDia,
     ObtenerHoraFinDetalleDia,
     ObtenerHexColor
@@ -266,13 +266,20 @@ dates.push(horaFin)
           ) + 20
       )
       .text((d) => d.ASUNTO);
-           
-              svg.append('text')
+               svg.append('text')
               .attr('class', 'title')
               .attr('x',250)
               .attr('y', 20)
               .attr('text-anchor', 'middle')
-              .text(ObtenerNombreUsuario(idUsuario));
+              .text(ObtenerUsuario(idUsuario).nombre )
+              // svg.append("svg:img")
+              //   .attr("xlink:href", ObtenerUsuario(idUsuario).rutaFoto)
+              //   .attr("x", 250)
+              //   .attr("y", 20)          
+              svg.append('image')
+    .attr('xlink:href',   `../../Temporal/FotosTerce/${ObtenerUsuario(idUsuario).rutaFoto}`)
+    .attr('width', 30)
+    .attr('height', 30)
 
   }, [actividades]);
 

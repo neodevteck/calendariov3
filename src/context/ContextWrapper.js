@@ -102,33 +102,28 @@ const ContextWrapper = (props) => {
                 nombre: res.data.d.nombre,
                 checked: true,
                 num: 0,
+                rutaFoto:  res.data.d.rutaFoto,
               },
             ];
             let storageKey = `${res.data.d.id}Usuarios`   
-           
-            //console.log(secureStorage.getItem(storageKey))
+           //console.log(secureStorage.getItem(storageKey))
             if (secureStorage.getItem(storageKey) !== null) {              
               setUsuarios(                
                 secureStorage.getItem(storageKey)
               );
-              console.log('setusuariosexiste')
+              //console.log('setusuariosexiste')
             } else {              
               secureStorage.setItem(storageKey,obj);
               setUsuarios(obj);
-              console.log('setusuarios')
-
-            }
-
-            
+              //console.log('setusuarios')
+            }            
           }
         }
       })
       .catch(() => {
         alert('Ha ocurrido un error');
         window.location = 'frmCalendario.aspx';
-      });
-
-     
+      });     
   }, []);
 
   useEffect(() => {
@@ -188,13 +183,13 @@ const ContextWrapper = (props) => {
     return '';
   }
 
-  function ObtenerNombreUsuario(id) {
+  function ObtenerUsuario(id) {
     for (let i = 0; i < usuarios.length; i++) {
       if (usuarios[i].id == id) {
-        return usuarios[i].nombre;
+        return usuarios[i];
       }
     }
-    return '';
+    return {};
   }
 
   function ObtenerHora(evt) {
@@ -291,7 +286,7 @@ const ContextWrapper = (props) => {
         ObtenerColorUsuario,
         ObtenerClaseColor,
         ObtenerHora,
-        ObtenerNombreUsuario,
+        ObtenerUsuario,
         ObtenerHoraIniDetalleDia,
         ObtenerHoraFinDetalleDia,
         ObtenerHexColor,

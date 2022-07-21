@@ -21,6 +21,7 @@ export default function BarraBusquedaUsu() {
       nombre: obj.NOMCOMPL_USU,
       checked: true,
       num: usuarios.length,
+      rutaFoto: obj.RUTACOMPLETA_IMGSRUTAS
     };
     if (usuarios.length < 10) {
       setUsuarios((prevState) => {
@@ -51,7 +52,7 @@ export default function BarraBusquedaUsu() {
             //.get('http://localhost:3003/usuarios')
             .post(
               'frmCalendarioV2.aspx/ObtenerLisUsuariosxFiltro',
-              { prefixText: e.target.value },
+              { prefixText: e.target.value, limite :5 },
               {
                 headers: { 'Content-Type': 'application/json' },
               }
@@ -103,7 +104,10 @@ export default function BarraBusquedaUsu() {
           .map((row, i) => (
             <React.Fragment key={i}>
               <li className='' onClick={() => AgregarUsuario(row)}>
-                {row.NOMCOMPL_USU}
+                <div>
+                {row.NOMCOMPL_USU}               
+                <img src={`../../Temporal/FotosTerce/${row.RUTACOMPLETA_IMGSRUTAS}`} alt={`F`} width={25}  />
+                </div>
               </li>
             </React.Fragment>
           ))}
