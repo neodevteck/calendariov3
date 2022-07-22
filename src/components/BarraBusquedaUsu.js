@@ -3,7 +3,7 @@ import GlobalContext from '../context/GlobalContext';
 import axios from 'axios';
 import Spinner from './Spinner';
 
-import { debounce } from '../util/util';
+import { debounce,Recortar } from '../util/util';
 
 export default function BarraBusquedaUsu() {
   const [listaCoincidencias, setListaCoincidencias] = useState([]);
@@ -104,9 +104,9 @@ export default function BarraBusquedaUsu() {
           .map((row, i) => (
             <React.Fragment key={i}>
               <li className='' onClick={() => AgregarUsuario(row)}>
-                <div>
+                <div style={{ display:'flex' }}>
                 {row.NOMCOMPL_USU}               
-                <img src={`../../Temporal/FotosTerce/${row.RUTACOMPLETA_IMGSRUTAS}`} alt={`F`} width={25}  />
+                <img src={row.RUTACOMPLETA_IMGSRUTAS ? `../../Temporal/FotosTerce/${row.RUTACOMPLETA_IMGSRUTAS}` : '../../App_Themes/AzulCielo/Imagenes/user.png'  } alt={`F`} className='imgUsuario'  />
                 </div>
               </li>
             </React.Fragment>

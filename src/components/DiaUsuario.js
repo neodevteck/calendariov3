@@ -2,6 +2,7 @@ import React, { useContext, useRef, useEffect } from 'react';
 import GlobalContext from '../context/GlobalContext';
 import * as d3 from 'd3';
 import dayjs from 'dayjs';
+import { Recortar } from '../util/util';
 
 const DiaUsuario = ({ dia, actividades, indice, idUsuario }) => {
   const {
@@ -183,14 +184,11 @@ dates.push(horaFin)
       .attr('transform', `translate(${margin.left},0)`)
       .attr('opacity', 0.3)
       .call(gridLines);
-
     const barGroups = svg
       .selectAll('g.barGroup')
       .data(actividades)
       .join('g')
       .attr('class', 'barGroup')
- 
-
     barGroups
       .append('rect')
       .attr('fill', (d) =>  ObtenerHexColor(d))
@@ -271,15 +269,31 @@ dates.push(horaFin)
               .attr('x',250)
               .attr('y', 20)
               .attr('text-anchor', 'middle')
-              .text(ObtenerUsuario(idUsuario).nombre )
-              // svg.append("svg:img")
-              //   .attr("xlink:href", ObtenerUsuario(idUsuario).rutaFoto)
-              //   .attr("x", 250)
-              //   .attr("y", 20)          
-              svg.append('image')
-    .attr('xlink:href',   `../../Temporal/FotosTerce/${ObtenerUsuario(idUsuario).rutaFoto}`)
-    .attr('width', 30)
-    .attr('height', 30)
+              .text(Recortar(ObtenerUsuario(idUsuario).nombre,20) )
+              
+              let defs = svg.append("defs").attr("id", "imgdefs")
+              let catpattern = defs.append("pattern")
+                        .attr("id", idUsuario)
+                        .attr("height", 1)
+                        .attr("width", 1)
+                        .attr("x", "0")
+                        .attr("y", "0")
+
+                        catpattern.append("image")
+          .attr("x", 0)
+          .attr("y", 0)
+          .attr("height", 35)
+          .attr("width", 30)
+          .attr("xlink:href", ObtenerUsuario(idUsuario).rutaFoto ? `../../Temporal/FotosTerce/${ObtenerUsuario(idUsuario).rutaFoto}` : '../../App_Themes/AzulCielo/Imagenes/user.png')
+     svg.append("circle")
+     .attr("r", 15)
+     .attr("cy", 15)
+     .attr("cx", 350)
+     .attr("fill",`url(#${idUsuario})`)
+              // svg.append('image')
+              // .attr('xlink:href', ObtenerUsuario(idUsuario).rutaFoto ? `../../Temporal/FotosTerce/${ObtenerUsuario(idUsuario).rutaFoto}` : '../../App_Themes/AzulCielo/Imagenes/user.png')
+              // .attr("x", 350)
+              // .attr("class", 'imgUsuario')
 
   }, [actividades]);
 

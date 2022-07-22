@@ -1,5 +1,6 @@
 import React, { useContext } from 'react';
 import GlobalContext from '../context/GlobalContext';
+import { Recortar } from '../util/util';
 
 export default function Usuarios() {
   const { usuarios, updateUsuario, DeleteUsuario, colores, idUsuarioLogueado,nitEmpresaUsuLogueado } =
@@ -23,7 +24,7 @@ export default function Usuarios() {
     <React.Fragment>
       <p className='text-gray-500 font-bold mt-10'>Usuarios</p>
       {usuarios.map(({ id, checked, nombre, num,rutaFoto }, idx) => (
-        <div key={id}>
+        <div key={id } style={{display:'flex'}}>
           <input
             type='checkbox'
             checked={checked}
@@ -38,8 +39,8 @@ export default function Usuarios() {
             }
             className={`form-checkbox h-5 w-5 accent-${ObtenerColorUsuario(num,id)}  rounded focus:ring-0 cursor-pointer`}
           />
-          <span className={`ml-2 text-gray-700 capitalize`}>{nombre}</span>
-          <img src={ `../../Temporal/FotosTerce/${rutaFoto}`} alt={`F`} width={25}  />
+          <span className={`ml-2 text-gray-700 capitalize`}>{Recortar(nombre,20)}</span>
+          <img src={ rutaFoto ? `../../Temporal/FotosTerce/${rutaFoto}` : '../../App_Themes/AzulCielo/Imagenes/user.png' } alt={`F`} className='imgUsuario' />
           {id !== idUsuarioLogueado && (
             <span className='pl-1 font-thin' onClick={() => DeleteUsuario(id)}>
               <i className='fa fa-times '></i>
