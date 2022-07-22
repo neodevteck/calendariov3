@@ -225,7 +225,9 @@ dates.push(horaFin)
         // console.log(d);
         // console.log(i);
         //console.log(d3.event);
-        setActividadSeleccionada(i);setMostrarModalActividad(true)
+        //setActividadSeleccionada(i);setMostrarModalActividad(true)
+        window.location.href = `../../FlujodeTrabajo/Formularios/frmCrearActividades.aspx?Formulario=frmCreaActividades&ID=${i.FLUJOTRABAJOID}`
+              
     })
 
     // const currentTimeDate = new Date(
@@ -263,7 +265,12 @@ dates.push(horaFin)
             )
           ) + 20
       )
-      .text((d) => d.ASUNTO);
+      .text((d) => ` ${ObtenerHora(d)} \n  ${d.ASUNTO} \n ${d.FLUJOTRABAJOID}`)
+      .attr('class', 'extraClass')
+      // .text((d) => ObtenerHora(d))
+      // .text((d) => d.FLUJOTRABAJOID);
+      
+
                svg.append('text')
               .attr('class', 'title')
               .attr('x',250)

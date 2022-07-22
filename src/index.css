@@ -19,11 +19,14 @@
     /* Color Azul Claro activo en otro usuario  */
  } 
 
-
  .imgUsuario{
     border-radius: 50%;
     width: 25px;
     height: 25px;
     padding-left: 3px;
     object-fit: contain;
+ }
+
+ .extraClass{
+   white-space: pre-line;
  }

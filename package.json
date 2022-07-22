@@ -15,6 +15,7 @@
     "react-dom": "^18.1.0",
     "react-query": "^3.38.1",
     "react-scripts": "5.0.1",
+    "react-tooltip": "^4.2.21",
     "secure-web-storage": "^1.0.2",
     "web-vitals": "^2.1.4"
   },
